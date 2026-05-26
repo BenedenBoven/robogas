@@ -17,3 +17,4 @@ psalm.xml
 **/*Zone.Identifier
 /storage/secured_files
 /atom
+/storage/secured_files
