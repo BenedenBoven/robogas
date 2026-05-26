@@ -1,0 +1,86 @@
+{
+    "name": "benedenboven/ddd-skeleton",
+    "description": "BenedenBoven project skeleton.",
+    "keywords": [
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.benedenboven.nl/"
+        }
+    ],
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "php": ">=8.3.0",
+        "benedenboven/atom": "*",
+        "benedenboven/atom-generic-forms": "^1.0",
+        "benedenboven/database": "dev-master",
+        "guzzlehttp/guzzle": "^7.2",
+        "intervention/image": "^2.3",
+        "laravel/framework": "^12.0",
+        "sentry/sentry-laravel": "^4.4"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.23",
+        "itsgoingd/clockwork": "^5.2",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.0",
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "classmap": [
+            "database"
+        ],
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-root-package-install": [
+            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "php artisan key:generate"
+        ],
+        "post-install-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postInstall",
+            "BenedenBoven\\Atom\\Application\\Composer\\UpdateAdministratorFolder::initialize",
+            "php artisan installation:post"
+        ],
+        "post-update-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "BenedenBoven\\Atom\\Application\\Composer\\UpdateAdministratorFolder::initialize",
+            "php artisan installation:post"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": false
+        }
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": [
+                "itsgoingd/clockwork"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "devDependencies": {
+        "breakpoint-hint": "git+ssh://git@github.com:ronaldjesse/breakpoint-hint.git",
+        "vite": "^6.3.1"
+    },
+    "dependencies": {
+        "@tailwindcss/vite": "^4.1.4",
+        "aos": "^2.3.4",
+        "axios": "^1.6.8",
+        "bb-cookie-notification": "git+ssh://git@github.com:benedenboven/bb-cookie-notification.git",
+        "flickity": "^3.0.0",
+        "laravel-vite-plugin": "^1.2.0",
+        "lodash": "^4.17.19",
+        "tailwindcss": "^4.1.4"
+    }
+}

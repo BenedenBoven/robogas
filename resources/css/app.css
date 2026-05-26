@@ -1,0 +1,54 @@
+@import "tailwindcss";
+@import './fontawesome.css';
+
+@source "../views";
+@layer base {
+    @theme {
+        --font-body: "Calibri", sans-serif;
+        --text-base-size: 1.25rem;
+        --text-base: var(--text-base-size);
+        --text-base-line-height: 1.7;
+        --text-9xl--line-height: 1.2;
+        --text-8xl--line-height: 1.2;
+        --text-7xl--line-height: 1.2;
+        --text-6xl--line-height: 1.2;
+        --text-5xl--line-height: 1.2;
+        --text-4xl--line-height: 1.2;
+        --text-3xl--line-height: 1.2;
+        --text-2xl--line-height: 1.2;
+        --text-xl--line-height: 1.2;
+        --text-base-color: #000;
+        --text-sm: 1rem;
+        --container-7xl: 100rem;
+
+        --font-heading: var(--font-body);
+        --heading-base-color: #000;
+    }
+
+    .max-w-7xl {
+        @media (max-width: 104rem) {
+            padding: 0 6rem;
+        }
+
+        @media (max-width: 75rem) {
+            padding: 0 4rem;
+        }
+
+        @media (max-width: 40rem) {
+            padding: 0 2rem;
+        }
+    }
+
+    body {
+        font-family: var(--font-body);
+        font-size: var(--text-base-size);
+        line-height: var(--text-base-line-height);
+        color: var(--text-base-color);
+        font-weight: 400;
+    }
+
+    p {
+        margin-bottom: 1rem;
+    }
+
+}

@@ -1,0 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="container-xl mx-auto">
+        <h1 class="text-5xl">{{ $taxonomy->getModel()->title }}</h1>
+    </div>
+@endsection
