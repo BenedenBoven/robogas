@@ -257,20 +257,18 @@
     }
 
     .nav-sticky-active {
-        @apply bg-black !py-0;
+        @apply bg-white !py-0;
 
-        .mainnav-pointer {
-            @apply !border-black;
+        .nav-blue {
+            @apply !fill-black;
+        }
 
-            i {
+        .mainnav {
+            a, a span {
                 @apply !text-black;
-            }
 
-            &:hover {
-                @apply !bg-black;
-
-                i {
-                    @apply !text-white;
+                &:hover {
+                    @apply !text-blue;
                 }
             }
         }

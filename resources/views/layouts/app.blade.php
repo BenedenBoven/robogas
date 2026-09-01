@@ -23,6 +23,7 @@
     <meta property="og:url" content="{{ getHost() }}{{ $taxonomy?->url ?? '/' }}">
 </head>
 <body>
+@include('components.nav')
 @yield('content')
 @vite(['resources/js/app.js'])
 @stack('scripts')
