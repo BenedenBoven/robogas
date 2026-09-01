@@ -4,8 +4,7 @@
 @source "../views";
 @layer base {
     @theme {
-        --font-body: "Calibri", sans-serif;
-        --text-base-size: 1.25rem;
+        --font-body: "Roboto", sans-serif;
         --text-base: var(--text-base-size);
         --text-base-line-height: 1.7;
         --text-9xl--line-height: 1.2;
@@ -17,12 +16,12 @@
         --text-3xl--line-height: 1.2;
         --text-2xl--line-height: 1.2;
         --text-xl--line-height: 1.2;
-        --text-base-color: #000;
+        --text-base-color: var(--color-black);
         --text-sm: 1rem;
         --container-7xl: 100rem;
 
-        --font-heading: var(--font-body);
-        --heading-base-color: #000;
+        --font-heading: "Poppins", sans-serif;
+        --heading-base-color: var(--color-black);
 
         --color-yellow: var(--color-yellow-300);
         --color-yellow-50: #fefce8;
@@ -90,7 +89,19 @@
         --color-grey-950: #0a0b0a;
     }
 
-    .max-w-7xl {
+    :root {
+        --text-base-size: 1rem;
+        --text-sm: 0.9rem;
+    }
+
+    @media (max-width: 1535px) {
+        :root {
+            --text-base-size: 0.9rem;
+            --text-sm: 0.8rem;
+        }
+    }
+
+    .max-w-7xl, .max-w-6xl {
         @media (max-width: 104rem) {
             padding: 0 6rem;
         }
@@ -104,16 +115,169 @@
         }
     }
 
+    .w-breadcrumbs {
+        @apply w-416;
+
+        @media (min-width: 116rem) {
+            @apply w-438;
+        }
+
+        @media (max-width: 104rem) {
+            @apply w-full;
+        }
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-heading);
+        color: var(--heading-base-color);
+        line-height: 1.2;
+        font-weight: 800;
+    }
+
+    html, body {
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+    }
+
     body {
         font-family: var(--font-body);
         font-size: var(--text-base-size);
         line-height: var(--text-base-line-height);
         color: var(--text-base-color);
-        font-weight: 400;
+        font-weight: 300;
+
+        strong {
+            font-weight: 800;
+        }
     }
 
-    p {
-        margin-bottom: 1rem;
+    .page-content {
+        p {
+            @apply mb-8;
+        }
+
+        a {
+            @apply underline font-bold transition-all;
+
+            &:hover {
+                @apply text-yellow;
+            }
+        }
+
+        h1 {
+            @apply mb-4 text-5xl font-black;
+        }
+
+        h2 {
+            @apply mb-4 text-4xl font-black;
+        }
+
+        h3 {
+            @apply mb-4 text-3xl font-black;
+        }
+
+        h4 {
+            @apply mb-4 text-2xl font-extrabold;
+        }
+
+        h5 {
+            @apply mb-4 text-xl font-extrabold;
+        }
+
+        h6 {
+            @apply !mb-4 text-lg font-extrabold;
+        }
+
+        table {
+            @apply mb-8 w-full;
+
+            p {
+                @apply mb-0;
+            }
+
+            tr {
+                &:nth-child(even) {
+                    @apply bg-white;
+                }
+
+                &:nth-child(odd) {
+                    @apply bg-grey;
+                }
+
+                &:first-child {
+                    @apply bg-yellow font-bold font-heading;
+                }
+
+                td {
+                    @apply p-2;
+                }
+            }
+        }
+
+        ul {
+            @apply mb-4 flex flex-col gap-y-3 block mb-8;
+
+            li {
+                @apply flex gap-3 inline-block relative pl-8;
+
+                &::before {
+                    content: "\f0c8";
+                    font-family: "Font Awesome 6 Pro";
+                    font-weight: 900;
+
+                    @apply inline-flex items-center justify-center mt-1 w-4 h-4 align-middle transition-transform duration-600 ease-in-out text-yellow absolute left-0;
+                }
+            }
+        }
+
+        ol {
+            counter-reset: item;
+            @apply mb-8 flex flex-col gap-y-3 list-none;
+
+            li {
+                counter-increment: item;
+                @apply relative pl-8;
+
+                &::before {
+                    content: counter(item) ".";
+                    @apply absolute left-0 font-bold text-yellow;
+                }
+            }
+        }
+
+        ol[type="a"] li::before {
+            content: counter(item, lower-alpha) ".";
+            @apply text-yellow;
+        }
+
+        ol[type="A"] li::before {
+            content: counter(item, lower-alpha) ".";
+            @apply text-yellow;
+        }
+    }
+
+    .nav-sticky-active {
+        @apply bg-black !py-0;
+
+        .mainnav-pointer {
+            @apply !border-black;
+
+            i {
+                @apply !text-black;
+            }
+
+            &:hover {
+                @apply !bg-black;
+
+                i {
+                    @apply !text-white;
+                }
+            }
+        }
+
+        #mobile-menu-toggle {
+            @apply !text-yellow;
+        }
     }
 
 }
