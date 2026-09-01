@@ -15,7 +15,6 @@
         "php": ">=8.3.0",
         "benedenboven/atom": "*",
         "benedenboven/atom-generic-forms": "^1.0",
-        "benedenboven/database": "dev-master",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.3",
         "laravel/framework": "^12.0",
