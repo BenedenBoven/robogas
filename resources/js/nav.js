@@ -4,8 +4,8 @@
 
 document.addEventListener('DOMContentLoaded', function() {
 
-    const nav                   = document.getElementById("nav");
-    const logo                  = document.getElementById("nav-logo");
+    const nav                   = document.getElementById('nav');
+    const logo                  = document.getElementById('nav-logo');
     const servicesDropdownGroup = document.querySelector('.services-dropdown-trigger')?.closest('.group');
 
     if(!nav) {
@@ -13,12 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    const path   = window.location.pathname;
-    const isHome = (path === "/");
-
-    let lastScroll         = 0;
-    let removeClassTimeout = null;
-    let isHoveringServices = false;
+    let lastScroll = 0;
 
     // ───────────────────────────────────────────────
     // Logo shrink functie
@@ -43,42 +38,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // ───────────────────────────────────────────────
 
     requestAnimationFrame(() => {
-
         updateLogoState();
-
-        if(!isHome || window.scrollY > 10) {
-            nav.classList.add("nav-sticky-active", "shadow-xl");
-        }
-
     });
 
     // ───────────────────────────────────────────────
-    // Services dropdown hover: force active nav state
+    // Services dropdown hover: nav altijd zichtbaar
     // ───────────────────────────────────────────────
 
     if(servicesDropdownGroup) {
 
         servicesDropdownGroup.addEventListener('mouseenter', () => {
-
-            isHoveringServices = true;
-
-            if(removeClassTimeout) clearTimeout(removeClassTimeout);
-
-            nav.style.transform = "translateY(0)";
-            nav.classList.add("nav-sticky-active", "shadow-xl");
-
-        });
-
-        servicesDropdownGroup.addEventListener('mouseleave', () => {
-
-            isHoveringServices = false;
-
-            const scrollTop = window.scrollY || document.documentElement.scrollTop;
-
-            if(isHome && scrollTop <= 0) {
-                nav.classList.remove("nav-sticky-active", "shadow-xl");
-            }
-
+            nav.style.transform = 'translateY(0)';
         });
 
     }
@@ -87,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Desktop scroll behaviour
     // ───────────────────────────────────────────────
 
-    window.addEventListener("scroll", () => {
+    window.addEventListener('scroll', () => {
 
         const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
@@ -95,15 +65,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if(currentScroll <= 0) {
 
-            nav.style.transform = "translateY(0)";
-
-            if(removeClassTimeout) clearTimeout(removeClassTimeout);
-
-            if(isHome && !isHoveringServices) {
-                nav.classList.remove("nav-sticky-active", "shadow-xl");
-            }
-
-            lastScroll = 0;
+            nav.style.transform = 'translateY(0)';
+            lastScroll          = 0;
 
             return;
 
@@ -111,27 +74,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if(currentScroll > lastScroll) {
 
-            nav.style.transform = "translateY(-100%)";
-
-            if(removeClassTimeout) clearTimeout(removeClassTimeout);
-
-            removeClassTimeout = setTimeout(() => {
-
-                if(isHome && !isHoveringServices) {
-                    nav.classList.remove("nav-sticky-active", "shadow-xl");
-                }
-
-            }, 200);
+            // Naar beneden scrollen
+            nav.style.transform = 'translateY(-100%)';
 
         } else {
 
-            nav.style.transform = "translateY(0)";
-
-            if(removeClassTimeout) clearTimeout(removeClassTimeout);
-
-            if(currentScroll > 10 || !isHome || isHoveringServices) {
-                nav.classList.add("nav-sticky-active", "shadow-xl");
-            }
+            // Naar boven scrollen
+            nav.style.transform = 'translateY(0)';
 
         }
 
@@ -145,17 +94,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     window.addEventListener('mousemove', (e) => {
 
-        const scrollTop = window.scrollY || document.documentElement.scrollTop;
-
         if(e.clientY < 100) {
-
-            if(!(isHome && scrollTop <= 0 && !isHoveringServices)) {
-
-                nav.style.transform = "translateY(0)";
-                nav.classList.add("nav-sticky-active", "shadow-xl");
-
-            }
-
+            nav.style.transform = 'translateY(0)';
         }
 
     });
@@ -207,8 +147,15 @@ toggleButton?.addEventListener('click', () => {
 
         requestAnimationFrame(() => {
 
-            mobileMenu?.classList.add('opacity-100', 'max-h-[1000px]');
-            mobileMenu?.classList.remove('opacity-0', 'max-h-0');
+            mobileMenu?.classList.add(
+                'opacity-100',
+                'max-h-[1000px]'
+            );
+
+            mobileMenu?.classList.remove(
+                'opacity-0',
+                'max-h-0'
+            );
 
         });
 
@@ -216,12 +163,18 @@ toggleButton?.addEventListener('click', () => {
         closeIcon?.classList.remove('hidden');
 
         nav?.style.setProperty('transform', 'translateY(0)');
-        nav?.classList.add('nav-sticky-active', 'shadow-xl');
 
     } else {
 
-        mobileMenu?.classList.add('opacity-0', 'max-h-0');
-        mobileMenu?.classList.remove('opacity-100', 'max-h-[1000px]');
+        mobileMenu?.classList.add(
+            'opacity-0',
+            'max-h-0'
+        );
+
+        mobileMenu?.classList.remove(
+            'opacity-100',
+            'max-h-[1000px]'
+        );
 
         setTimeout(() => {
             mobileMenu?.classList.add('hidden');
@@ -230,19 +183,8 @@ toggleButton?.addEventListener('click', () => {
         openIcon?.classList.remove('hidden');
         closeIcon?.classList.add('hidden');
 
-        nav?.classList.remove('nav-sticky-active', 'shadow-xl');
-
         requestAnimationFrame(() => {
-
-            const scrollTop = window.scrollY || document.documentElement.scrollTop;
-            const isHome    = (window.location.pathname === "/");
-
-            if(!isHome || scrollTop > 10) {
-                nav?.classList.add('nav-sticky-active', 'shadow-xl');
-            }
-
             updateLogoState();
-
         });
 
     }
@@ -265,9 +207,15 @@ window.addEventListener('scroll', () => {
     updateLogoState();
 
     if(isOpen) {
+
         nav.style.transform = 'translateY(0)';
-        lastScrollTop       = currentScroll <= 0 ? 0 : currentScroll;
+
+        lastScrollTop = currentScroll <= 0
+            ? 0
+            : currentScroll;
+
         return;
+
     }
 
     if(currentScroll > lastScrollTop) {
@@ -280,6 +228,8 @@ window.addEventListener('scroll', () => {
 
     }
 
-    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    lastScrollTop = currentScroll <= 0
+        ? 0
+        : currentScroll;
 
 });

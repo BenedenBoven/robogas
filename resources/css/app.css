@@ -256,28 +256,6 @@
         }
     }
 
-    .nav-sticky-active {
-        @apply bg-white !py-0;
-
-        .nav-blue {
-            @apply !fill-black;
-        }
-
-        .mainnav {
-            a, a span {
-                @apply !text-black;
-
-                &:hover {
-                    @apply !text-blue;
-                }
-            }
-        }
-
-        #mobile-menu-toggle {
-            @apply !text-yellow;
-        }
-    }
-
 }
 
 @font-face {
