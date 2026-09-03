@@ -1,0 +1,158 @@
+@utility btn-active {
+
+    padding-left: 1.5rem !important;
+    padding-right: 1.25rem !important;
+
+
+    &::after,
+    &:focus-visible::after {
+        opacity: 0 !important;
+        transform: translateX(5px) !important;
+    }
+
+    &::before,
+    &:focus-visible::before {
+        opacity: 1 !important;
+        transform: translateX(0) !important;
+    }
+}
+
+@layer components {
+    .btn {
+        @apply relative font-bold inline-block box-border overflow-hidden whitespace-nowrap cursor-pointer appearance-none border-0 no-underline shadow-xl;
+
+        width: fit-content;
+        padding: 0.8rem 1.5rem 0.8rem 1.25rem;
+        line-height: 1;
+
+        transition: padding-left 450ms cubic-bezier(.65, 0, .35, 1),
+        padding-right 450ms cubic-bezier(.65, 0, .35, 1);
+    }
+
+    /*
+     * Rechter verticale strook
+     */
+    .btn::after {
+        content: "";
+
+        @apply pointer-events-none absolute right-0 top-0;
+
+        width: 5px;
+        height: 100%;
+        background: currentColor;
+
+        opacity: 1;
+        transform: translateX(0);
+
+        transition: transform 450ms cubic-bezier(.65, 0, .35, 1),
+        opacity 300ms ease;
+    }
+
+    /*
+     * Linker strook + puntje
+     */
+    .btn::before {
+        content: "";
+
+        @apply pointer-events-none absolute left-0 top-0;
+
+        width: 5px;
+        height: 100%;
+        background: currentColor;
+
+        opacity: 0;
+        transform: translateX(-5px);
+
+        transition: transform 450ms cubic-bezier(.65, 0, .35, 1),
+        opacity 300ms ease;
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+        padding-left: 1.5rem;
+        padding-right: 1.25rem;
+    }
+
+    .btn:hover::after,
+    .btn:focus-visible::after {
+        opacity: 0;
+        transform: translateX(5px);
+    }
+
+    .btn:hover::before,
+    .btn:focus-visible::before {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .btn:focus-visible {
+        @apply outline-3 outline-current outline-offset-4;
+    }
+
+    .btn:disabled,
+    .btn[aria-disabled="true"] {
+        @apply pointer-events-none cursor-not-allowed opacity-50;
+    }
+
+    .btn-primary {
+        @apply bg-white text-black;
+    }
+
+    .btn-primary::before,
+    .btn-primary::after {
+        @apply text-yellow;
+    }
+
+
+    .btn-secondary {
+        @apply bg-white text-blue;
+    }
+
+    .btn-secondary::before,
+    .btn-secondary::after {
+        @apply text-yellow;
+    }
+
+
+    .btn-dark {
+        @apply bg-blue text-white;
+    }
+
+    .btn-dark::before,
+    .btn-dark::after {
+        @apply text-yellow;
+    }
+
+
+    .btn-trans {
+        @apply bg-white/10 backdrop-blur-md text-white hover:bg-white/20;
+    }
+
+    .btn-trans::before,
+    .btn-trans::after {
+        @apply text-yellow;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btn,
+    .btn::before,
+    .btn::after {
+        transition: none;
+    }
+}
+
+.btn-down {
+    @apply inline-flex items-center gap-2;
+
+    > i {
+        @apply shrink-0;
+
+        transition: transform 300ms cubic-bezier(.34, 1.56, .64, 1);
+    }
+
+    &:hover > i,
+    &:focus-visible > i {
+        transform: translateY(4px);
+    }
+}

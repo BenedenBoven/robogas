@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import './fontawesome.css';
+@import './buttons.css';
 
 @source "../views";
 @layer base {
@@ -76,17 +77,17 @@
         --color-blue-light-950: #28323e;
 
         --color-grey: var(--color-grey-200);
-        --color-grey-50: #f9fafa;
-        --color-grey-100: #f4f5f5;
-        --color-grey-200: #e8e9e8;
-        --color-grey-300: #d3d4d3;
-        --color-grey-400: #a1a5a1;
-        --color-grey-500: #707470;
-        --color-grey-600: #515452;
-        --color-grey-700: #3e423f;
-        --color-grey-800: #262726;
-        --color-grey-900: #191a19;
-        --color-grey-950: #0a0b0a;
+        --color-grey-50: #f9fafb;
+        --color-grey-100: #f3f4f6;
+        --color-grey-200: #eaebef;
+        --color-grey-300: #d1d4db;
+        --color-grey-400: #9ca0af;
+        --color-grey-500: #6b6f80;
+        --color-grey-600: #4b5263;
+        --color-grey-700: #373e51;
+        --color-grey-800: #1f2637;
+        --color-grey-900: #111527;
+        --color-grey-950: #030512;
     }
 
     :root {
@@ -153,7 +154,7 @@
 
     .page-content {
         p {
-            @apply mb-8;
+            @apply mb-5;
         }
 
         a {
@@ -218,14 +219,14 @@
             @apply mb-4 flex flex-col gap-y-3 block mb-8;
 
             li {
-                @apply flex gap-3 inline-block relative pl-8;
+                @apply flex gap-3 inline-block relative pl-7;
 
                 &::before {
-                    content: "\f0c8";
+                    content: "\f00c";
                     font-family: "Font Awesome 6 Pro";
                     font-weight: 900;
 
-                    @apply inline-flex items-center justify-center mt-1 w-4 h-4 align-middle transition-transform duration-600 ease-in-out text-yellow absolute left-0;
+                    @apply inline-flex items-center justify-center mt-1 w-4 h-4 align-middle transition-transform duration-600 ease-in-out text-blue-light absolute left-0;
                 }
             }
         }
