@@ -19,7 +19,8 @@
         --text-xl--line-height: 1.2;
         --text-base-color: var(--color-black);
         --text-sm: 1rem;
-        --container-7xl: 100rem;
+        --container-6xl: 100rem;
+        --container-7xl: 120rem;
 
         --font-heading: "Poppins", sans-serif;
         --heading-base-color: var(--color-black);
@@ -103,9 +104,7 @@
     }
 
     .max-w-7xl, .max-w-6xl {
-        @media (max-width: 104rem) {
-            padding: 0 6rem;
-        }
+        padding: 0 6rem;
 
         @media (max-width: 75rem) {
             padding: 0 4rem;
@@ -113,6 +112,10 @@
 
         @media (max-width: 40rem) {
             padding: 0 2rem;
+        }
+
+        @media (max-width: 26rem) {
+            padding: 0 1.4rem;
         }
     }
 

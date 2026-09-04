@@ -5,27 +5,33 @@
         <video class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline>
             <source src="{{ Vite::asset('resources/img/default.mp4') }}" type="video/mp4">
         </video>
-        <div class="relative z-10 mx-auto max-w-7xl min-h-[90dvh] flex items-center ">
-            <div class="max-w-7xl flex flex-col gap-4 p-0 relative ">
-                <h1 class="text-black text-5xl md:text-7xl font-heading font-bold">
-                    Buiten het gasnet,<br class="hidden lg:block"/>
-                    binnen het comfort.
-                </h1>
-                <div>
-                    <span class="uppercase font-heading font-extrabold bg-yellow text-black px-4 py-2">één partij voor propaangastank, techniek en levering</span>
+        <div class="mx-auto max-w-6xl">
+            <div class="relative z-10 min-h-[80dvh] flex items-center">
+                <div class="w-full flex flex-col gap-4">
+                    <h1 class="text-black text-5xl md:text-7xl font-heading font-bold">
+                        Buiten het gasnet,<br class="hidden lg:block"/>
+                        binnen het comfort.
+                    </h1>
+                    <div>
+                        <span class="uppercase font-heading font-extrabold bg-yellow text-black px-4 py-2">
+                            één partij voor propaangastank, techniek en levering
+                        </span>
+                    </div>
+                </div>
+                <div class="absolute bottom-0 left-0 z-10">
+                    <a href="#" class="btn btn-primary btn-down shadow-none">
+                        <i class="fa-regular fa-angle-down"></i>
+                        Direct bestellen
+                    </a>
                 </div>
             </div>
-            <div class="absolute bottom-34 left-auto">
-                <a href="#" class="btn btn-primary btn-down shadow-none">
-                    <i class="fa-regular fa-angle-down"></i>
-                    Direct bestellen
-                </a>
-            </div>
         </div>
-        <div class="h-34 rounded-t-4xl bg-white w-[calc(100%-4rem)] absolute bottom-0 left-1/2 -translate-x-1/2"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="h-34 rounded-t-4xl bg-white w-full"></div>
+        </div>
     </section>
     <section class="pb-24 2xl:pb-32 bg-white relative">
-        <div class="max-w-7xl mx-auto relative z-10">
+        <div class="max-w-6xl mx-auto relative z-10">
             <div class="grid grid-cols-2 gap-8 items-stretch">
                 <div class="relative bg-grey rounded-3xl px-10 pb-10 shadow-lg hover:shadow-xl hover:-translate-y-2 duration-300 transition-all flex flex-col gap-4 group">
                     <a href="#" class="absolute inset-0 z-20 cursor-pointer"></a>
