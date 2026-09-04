@@ -92,6 +92,29 @@
                 </button>
             </div>
         </div>
+        <div class="static xl:relative">
+            <div class="absolute top-24 xl:top-0 right-0 flex flex-col items-end gap-2 xl:flex-row xl:items-center pointer-events-auto translate-x-1">
+                <div class="relative flex items-center overflow-hidden drop-shadow-lg translate-x-[calc(100%-3rem)] hover:translate-x-0 xl:translate-x-0 transition-transform duration-300 group">
+                    <a href="#" class="absolute inset-0 z-20 cursor-pointer" aria-label="Gas bestellen"></a>
+                    <span class="flex h-12 w-12 shrink-0 items-center justify-center bg-black group-hover:bg-blue transition-all duration-300 rounded-l-xl xl:rounded-lb-xl xl:rounded-tl-none">
+                    <i class="fa-solid fa-fire text-white"></i>
+                </span>
+                    <span class="whitespace-nowrap text-sm ps-1 -translate-x-1 pe-4 font-extrabold font-heading uppercase bg-black group-hover:bg-blue transition-all duration-300 text-white h-12 flex items-center xl:rounded-br-xl">
+                    Gas bestellen
+                </span>
+                </div>
+
+                <div class="relative flex items-center overflow-hidden drop-shadow-lg translate-x-[calc(100%-3rem)] hover:translate-x-0 xl:translate-x-0 transition-transform duration-300 group">
+                    <a href="#" class="absolute inset-0 z-20 cursor-pointer" aria-label="Mijn Robogas"></a>
+                    <span class="flex h-12 w-12 shrink-0 items-center justify-center bg-yellow group-hover:bg-blue-light transition-all duration-300 rounded-l-xl xl:rounded-lb-xl xl:rounded-tl-none">
+                    <i class="fa-etch fa-solid fa-user text-black group-hover:text-white transition-all duration-300"></i>
+                </span>
+                    <span class="whitespace-nowrap text-sm ps-1 -translate-x-1 pe-4 font-extrabold font-heading uppercase bg-yellow group-hover:bg-blue-light group-hover:text-white transition-all duration-300 text-black h-12 flex items-center xl:rounded-br-xl">
+                    Mijn Robogas
+                </span>
+                </div>
+            </div>
+        </div>
     </div>
     <div id="mobile-menu" class="opacity-0 max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white">
         <div class="max-w-7xl mx-auto">
@@ -125,29 +148,3 @@
         </div>
     </div>
 </nav>
-
-<div class="fixed inset-x-0 top-24 xl:top-27 z-50 pointer-events-none">
-    <div class="relative w-full xl:max-w-7xl xl:mx-auto">
-        <div class="absolute right-0 flex flex-col items-end gap-2 xl:flex-row xl:items-center pointer-events-auto translate-x-1">
-            <div class="relative flex items-center overflow-hidden drop-shadow-lg translate-x-[calc(100%-3rem)] hover:translate-x-0 xl:translate-x-0 transition-transform duration-300 group">
-                <a href="#" class="absolute inset-0 z-20 cursor-pointer" aria-label="Gas bestellen"></a>
-                <span class="flex h-12 w-12 shrink-0 items-center justify-center bg-black group-hover:bg-blue transition-all duration-300 rounded-l-xl xl:rounded-lb-xl xl:rounded-tl-none">
-                    <i class="fa-solid fa-fire text-white"></i>
-                </span>
-                <span class="whitespace-nowrap text-sm ps-1 -translate-x-1 pe-4 font-extrabold font-heading uppercase bg-black group-hover:bg-blue transition-all duration-300 text-white h-12 flex items-center xl:rounded-br-xl">
-                    Gas bestellen
-                </span>
-            </div>
-
-            <div class="relative flex items-center overflow-hidden drop-shadow-lg translate-x-[calc(100%-3rem)] hover:translate-x-0 xl:translate-x-0 transition-transform duration-300 group">
-                <a href="#" class="absolute inset-0 z-20 cursor-pointer" aria-label="Mijn Robogas"></a>
-                <span class="flex h-12 w-12 shrink-0 items-center justify-center bg-yellow group-hover:bg-blue-light transition-all duration-300 rounded-l-xl xl:rounded-lb-xl xl:rounded-tl-none">
-                    <i class="fa-etch fa-solid fa-user text-black group-hover:text-white transition-all duration-300"></i>
-                </span>
-                <span class="whitespace-nowrap text-sm ps-1 -translate-x-1 pe-4 font-extrabold font-heading uppercase bg-yellow group-hover:bg-blue-light group-hover:text-white transition-all duration-300 text-black h-12 flex items-center xl:rounded-br-xl">
-                    Mijn Robogas
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
