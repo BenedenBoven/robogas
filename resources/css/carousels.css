@@ -1,0 +1,140 @@
+@import '~flickity/css/flickity.css';
+
+.gallery-carousel {
+    --normal-scale: 0.98;
+    --selected-scale: 1.14;
+
+    position: relative;
+    padding: 60px 0 80px;
+}
+
+.gallery-carousel .flickity-viewport {
+    overflow: visible;
+}
+
+/*
+ * De cell bepaalt waar Flickity de slide plaatst.
+ * Hier géén transform op zetten.
+ */
+.gallery-carousel-cell {
+    width: 25%;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*
+ * Deze wrapper schuiven we met JS een klein stukje
+ * naar links/rechts om ruimte voor de grote slide te maken.
+ */
+.gallery-carousel-offset {
+    width: 100%;
+    transform: translateX(var(--carousel-offset, 0px));
+    transition: transform .7s cubic-bezier(.22, 1, .36, 1);
+}
+
+/* Afbeelding */
+.gallery-carousel-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    transform: scale(var(--normal-scale));
+    transform-origin: center center;
+    opacity: .65;
+
+    transition: transform .7s cubic-bezier(.22, 1, .36, 1),
+    opacity .5s ease;
+
+    will-change: transform;
+}
+
+.gallery-carousel-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: .375rem;
+}
+
+/* Geselecteerde afbeelding */
+.gallery-carousel-cell.is-selected {
+    z-index: 5;
+}
+
+.gallery-carousel-cell.is-selected .gallery-carousel-image {
+    transform: scale(var(--selected-scale));
+    opacity: 1;
+}
+
+/* Dots */
+.gallery-carousel .flickity-page-dots {
+    bottom: 10px;
+}
+
+.gallery-carousel .flickity-page-dot {
+    width: 8px;
+    height: 8px;
+    margin: 0 3px;
+    padding: 0;
+
+    background: transparent;
+    border: 1px solid #3155a5;
+    opacity: 1;
+
+    transition: background-color .3s ease,
+    transform .3s ease;
+}
+
+.gallery-carousel .flickity-page-dot.is-selected {
+    background: #3155a5;
+    transform: scale(1.05);
+}
+
+/* Pijlen niet tonen */
+.gallery-carousel .flickity-button {
+    display: none;
+}
+
+
+/* Tablet */
+@media (max-width: 1279px) {
+
+    .gallery-carousel {
+        --normal-scale: .94;
+        --selected-scale: 1.06;
+
+        padding: 50px 0 70px;
+    }
+
+    .gallery-carousel-cell {
+        width: 38%;
+        padding: 0 4px;
+    }
+}
+
+
+/* Mobiel */
+@media (max-width: 767px) {
+
+    .gallery-carousel {
+        --normal-scale: .96;
+        --selected-scale: 1;
+
+        padding: 40px 0 60px;
+    }
+
+    .gallery-carousel-cell {
+        width: 80%;
+        padding: 0 3px;
+    }
+
+    .gallery-carousel-image {
+        opacity: .75;
+    }
+
+    .gallery-carousel-cell.is-selected .gallery-carousel-image {
+        opacity: 1;
+    }
+
+    .gallery-carousel .flickity-page-dots {
+        bottom: 5px;
+    }
+}

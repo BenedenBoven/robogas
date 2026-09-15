@@ -24,7 +24,9 @@
 </head>
 <body>
 @include('components.nav')
+@include('components.header')
 @yield('content')
+@include('components.footer')
 @vite(['resources/js/app.js'])
 @stack('scripts')
 {!! $atomFrontEndService->getScripts() !!}

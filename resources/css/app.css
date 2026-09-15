@@ -2,6 +2,7 @@
 @import './fontawesome.css';
 @import './buttons.css';
 @import './modulobox.css';
+@import './carousels.css';
 
 @source "../views";
 @layer base {
@@ -94,13 +95,13 @@
 
     :root {
         --text-base-size: 1rem;
-        --text-sm: 0.9rem;
+        --text-sm: 0.85rem;
     }
 
     @media (max-width: 1535px) {
         :root {
             --text-base-size: 0.9rem;
-            --text-sm: 0.8rem;
+            --text-sm: 0.75rem;
         }
     }
 
@@ -153,6 +154,30 @@
 
         strong {
             font-weight: 800;
+        }
+    }
+
+    .powered-by-bb {
+        transition: all 0.3s ease;
+
+        span {
+            @apply text-black;
+        }
+
+        i, span {
+            transition: all 0.3s ease;
+        }
+
+        &:hover {
+            i {
+                @apply text-blue;
+                text-shadow: 0 0 10px var(--color-blue), 0 0 20px var(--color-blue), 0 0 30px var(--color-blue), 0 0 40px var(--color-blue), 0 0 70px var(--color-blue), 0 0 80px var(--color-blue), 0 0 100px var(--color-blue), 0 0 150px var(--color-blue);
+                margin-right: 0;
+            }
+
+            span {
+                @apply text-blue;
+            }
         }
     }
 
