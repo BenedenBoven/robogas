@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('header')
-    <header class="relative min-h-[90dvh] overflow-hidden bg-blue">
+    <header class="relative min-h-[80dvh] 2xl:min-h-[90dvh] overflow-hidden bg-blue">
         <video class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline>
             <source src="{{ Vite::asset('resources/img/default.mp4') }}" type="video/mp4">
         </video>
-        <div class="mx-auto max-w-6xl">
-            <div class="relative z-10 min-h-[80dvh] flex items-center">
+        <div class="mx-auto max-w-7xl">
+            <div class="relative z-10 min-h-[70dvh] 2xl:min-h-[80dvh] flex items-center">
                 <div class="w-full flex flex-col gap-4">
                     <h1 class="text-black text-5xl md:text-7xl font-heading font-bold">
                         Buiten het gasnet,<br class="hidden lg:block"/>
@@ -14,31 +14,32 @@
                     </h1>
                     <div>
                         <span class="uppercase font-heading font-extrabold bg-yellow text-black px-4 py-2">
-                            één partij voor propaangastank, techniek en levering
+                            één partij voor propaangastank<span class="pr-4 md:pr-0">,</span><br class="md:hidden"/> <span class="pl-4 md:pl-0">techniek en levering</span>
                         </span>
                     </div>
                 </div>
                 <div class="absolute bottom-0 left-0 z-10">
-                    <a href="#" class="btn btn-primary btn-down shadow-none">
+                    <a href="#order" class="btn btn-primary btn-down shadow-none">
                         <i class="fa-regular fa-angle-down"></i>
                         Direct bestellen
                     </a>
+                    <div class="hidden 2xl:block bg-white h-10 w-full absolute -bottom-10 left-0"></div>
                 </div>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto relative z-10">
+        <div class="2xl:max-w-7xl mx-auto relative z-10">
             <div class="h-34 rounded-t-4xl bg-white w-full"></div>
         </div>
     </header>
 @endsection
 
 @section('content')
-    <section class="pb-24 2xl:pb-32 bg-white relative">
+    <section id="order" class="pb-24 2xl:pb-32 bg-white relative">
         <div class="max-w-6xl mx-auto relative z-10">
-            <div class="grid grid-cols-2 gap-8 items-stretch">
+            <div class="grid lg:grid-cols-2 gap-8 items-stretch">
                 <div class="relative bg-grey rounded-3xl px-10 pb-10 shadow-lg hover:shadow-xl hover:-translate-y-2 duration-300 transition-all flex flex-col gap-4 group">
                     <a href="#" class="absolute inset-0 z-20 cursor-pointer"></a>
-                    <div class="w-full h-100 relative -mt-14 z-10">
+                    <div class="w-full h-60 md:h-100 relative -mt-14 z-10">
                         <img src="{{ Vite::asset('resources/img/gastank.png') }}" alt=""
                              class="absolute z-4 inset-0 w-full h-full object-contain object-top drop-shadow-xl"/>
                     </div>
@@ -63,10 +64,10 @@
                         </svg>
                     </div>
                 </div>
-                <div class="flex flex-col gap-8">
-                    <div class="relative bg-grey rounded-3xl px-10 pb-10 shadow-lg hover:shadow-xl hover:-translate-y-2 duration-300 transition-all flex flex-row gap-4 group">
+                <div class="flex flex-col gap-8 z-20">
+                    <div class="relative bg-grey rounded-3xl px-10 pb-10 shadow-lg hover:shadow-xl hover:-translate-y-2 duration-300 transition-all flex flex-col sm:flex-row gap-4 group">
                         <a href="#" class="absolute inset-0 z-20 cursor-pointer"></a>
-                        <div class="w-full flex flex-col gap-4 relative z-10 mt-auto grow">
+                        <div class="order-2 sm:order-1 w-full flex flex-col gap-4 relative z-10 mt-auto grow">
                             <div>
                                 <h2 class="font-light text-4xl text-black mb-1">Gasflessen</h2>
                                 <h4 class="font-bold uppercase text-blue">Gas voor kleingebruik</h4>
@@ -80,7 +81,7 @@
                             </div>
                             <a href="#" class="btn btn-primary group-hover:btn-active">Bekijk</a>
                         </div>
-                        <div class="w-full h-100 relative -mt-14 z-10">
+                        <div class="order-1 sm:order-2 w-full h-60 sm:h-100 relative -mt-5 sm:-mt-14 z-10">
                             <img src="{{ Vite::asset('resources/img/gasfles.png') }}" alt=""
                                  class="absolute z-4 inset-0 w-full h-full object-contain object-top drop-shadow-xl"/>
                         </div>
@@ -107,7 +108,7 @@
                 </div>
             </div>
         </div>
-        <div class="bg-black w-full h-[30%] absolute left-0 bottom-0 z-1"></div>
+        <div class="bg-black w-full h-54 md:h-[30%] absolute left-0 bottom-0 z-1"></div>
     </section>
     @include('components.video-block')
     @include('components.services')

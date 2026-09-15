@@ -4,6 +4,22 @@
 @import './modulobox.css';
 @import './carousels.css';
 
+@utility max-w-7xl {
+    padding: 0 6rem;
+
+    @media (max-width: 75rem) {
+        padding: 0 4rem;
+    }
+
+    @media (max-width: 40rem) {
+        padding: 0 2rem;
+    }
+
+    @media (max-width: 26rem) {
+        padding: 0 1.4rem;
+    }
+}
+
 @source "../views";
 @layer base {
     @theme {
@@ -141,7 +157,6 @@
     }
 
     html, body {
-        overflow-x: hidden;
         scroll-behavior: smooth;
     }
 

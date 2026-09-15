@@ -1,12 +1,21 @@
 <section class="py-24 2xl:py-32 relative">
-    <div class="bg-black w-full h-48 2xl:h-64 absolute left-0 top-0 z-1"></div>
+    <div class="{{ $bgBlock ?? 'bg-black' }} w-full h-48 2xl:h-64 absolute left-0 top-0 z-1"></div>
     <div class="max-w-7xl mx-auto relative z-10 flex flex-col xl:flex-row items-start gap-16 2xl:gap-32">
-        <div class="xl:w-3/5">
+        <div class="w-full xl:w-3/5">
             <div class="w-full aspect-video gallery relative group overflow-hidden video-hover">
                 <figure class="absolute inset-0">
-                    <a href="{{ Vite::asset('resources/img/default.mp4') }}" data-src="{{ Vite::asset('resources/img/default.mp4') }}" data-thumb="{{ Vite::asset('resources/img/default.jpg') }}" data-rel="index-gallery"
+                    <a href="{{ Vite::asset('resources/img/default.mp4') }}"
+                       data-src="{{ Vite::asset('resources/img/default.mp4') }}"
+                       data-thumb="{{ Vite::asset('resources/img/default.jpg') }}"
+                       data-rel="index-gallery"
                        class="block w-full h-full">
-                        <video class="hover-video w-full h-full object-cover transition-transform duration-500 group-hover:scale-102" src="{{ Vite::asset('resources/img/default.mp4') }}" muted playsinline preload="auto"></video>
+                        <video
+                                class="hover-video w-full h-full object-cover transition-transform duration-500 group-hover:scale-102"
+                                src="{{ Vite::asset('resources/img/default.mp4') }}"
+                                muted
+                                playsinline
+                                preload="auto"
+                        ></video>
                     </a>
                 </figure>
                 <div class="absolute left-5 bottom-5 h-14 w-14 flex items-center justify-center pointer-events-none transition-all duration-300 group-hover:opacity-0 group-hover:scale-75">
@@ -19,7 +28,7 @@
                 </div>
             </div>
         </div>
-        <div class="xl:w-2/5 flex flex-col gap-4 xl:mt-32 2xl:mt-64">
+        <div class="w-full xl:w-2/5 flex flex-col gap-4 xl:mt-32 2xl:mt-64">
             <div class="mb-5">
                 <h2 class="text-5xl">Waarom propaan?</h2>
                 <h6 class="font-bold text-sm uppercase text-blue">De vele voordelen</h6>

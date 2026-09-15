@@ -6,6 +6,7 @@ import './nav.js';
 import './modulobox.js';
 import './gsap.js';
 import './carousels.js';
+import './plugins/gridzy.min.js';
 
 
 /*
