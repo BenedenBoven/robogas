@@ -12,10 +12,14 @@ abstract readonly class AbstractMemoizedComposer {
     ) {}
 
     /**
-     * Memoize a value for the duration of the request
+     * Memoize a value for the duration of the request.
+     *
+     * Bewust over de array-store: memo() wikkelt anders de standaardstore, en
+     * die schrijft naar bestand of redis. De waarde blijft dan een seconde
+     * staan en wordt door een volgend request meegelezen.
      */
     protected function memoize(string $key, callable $callback): mixed {
-        $memoCache = $this->cacheManager->memo();
+        $memoCache = $this->cacheManager->memo('array');
 
         $value = $memoCache->get($key);
 
