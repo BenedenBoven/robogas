@@ -7,11 +7,14 @@
     @var string|null         $ribbonTone    'dark' of 'tint'           @uses meegegeven bij @include
     @var string|null         $ribbonTitle                             @uses meegegeven bij @include
     @var string|null         $ribbonEyebrow                           @uses meegegeven bij @include
+    @var bool|null           $ribbonClose   laatste blok voor de footer: afgeronde onderkant met witruimte  @uses meegegeven bij @include
 --}}
 @php $ribbonDark = ($ribbonTone ?? 'dark') === 'dark'; @endphp
-<section class="py-24 2xl:py-32 relative">
+<section @class(['relative py-24 2xl:py-32', 'pb-48 2xl:pb-56' => !empty($ribbonClose)])>
     <div @class([
-        'w-full sm:w-[calc(100%-64px)] h-full absolute left-0 top-0 z-1 sm:mx-8',
+        'w-full sm:w-[calc(100%-64px)] absolute left-0 top-0 z-1 sm:mx-8',
+        'h-full' => empty($ribbonClose),
+        'h-[calc(100%-6rem)] rounded-b-4xl' => !empty($ribbonClose),
         'bg-black' => $ribbonDark,
         'bg-blue-light-200' => !$ribbonDark,
     ])></div>

@@ -24,7 +24,7 @@ final readonly class ShowService {
 
         /** @var Service $service */
         $service = $taxonomy->getModel();
-        $service->loadMissing('header');
+        $service->loadMissing(['header', 'audiences']);
 
         $services = $this->serviceRepository->getAll();
         $index    = $services->search(fn(Service $step) => $step->id === $service->id);

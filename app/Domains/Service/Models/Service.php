@@ -2,7 +2,10 @@
 
 namespace App\Domains\Service\Models;
 
+use App\Domains\Audience\Models\Audience;
+use App\Infrastructure\Traits\HasLineLists;
 use BenedenBoven\Atom\Application\Models\AtomModel;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Een stap uit de A-tot-Z aanpak.
@@ -18,6 +21,8 @@ use BenedenBoven\Atom\Application\Models\AtomModel;
  * @property int         $priority
  */
 final class Service extends AtomModel {
+
+    use HasLineLists;
 
     public const ICONS = [
         'advies'      => 'fa-solid fa-comments',
@@ -36,22 +41,23 @@ final class Service extends AtomModel {
         'icon'  => 'required',
     ];
 
+    /** Dezelfde koppeltabel als Audience::services(); te beheren vanaf beide kanten. */
+    public function audiences(): BelongsToMany {
+        return $this->belongsToMany(Audience::class, 'rg_audiences_services', 'service_id', 'audience_id')
+            ->withTimestamps()->published()->joined()->orderBy('rg_audiences.priority');
+    }
+
     public function getIconClassAttribute(): string {
         return self::ICONS[$this->icon] ?? reset(self::ICONS);
     }
 
     /** @return list<string> */
     public function getWeDoItemsAttribute(): array {
-        return self::lines($this->we_do);
+        return $this->linesOf('we_do');
     }
 
     /** @return list<string> */
     public function getWeNeedItemsAttribute(): array {
-        return self::lines($this->we_need);
-    }
-
-    /** @return list<string> */
-    private static function lines(?string $text): array {
-        return array_values(array_filter(array_map('trim', preg_split('/\R/', (string)$text))));
+        return $this->linesOf('we_need');
     }
 }

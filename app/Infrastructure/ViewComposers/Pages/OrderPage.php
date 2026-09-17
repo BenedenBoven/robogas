@@ -7,17 +7,16 @@ use App\Infrastructure\Attributes\ComposesViews;
 use App\Support\TaxonomyMap;
 
 #[ComposesViews(
-    'services.list',
-    'audiences.list'
+    'audiences.show'
 )]
-#[ComposerDescription('De contactpagina, als bestemming voor contactknoppen.', 'contactPage')]
-final readonly class ContactPage extends AbstractPageComposer {
+#[ComposerDescription('De pagina Gas bestellen, als bestemming voor bestelknoppen.', 'orderPage')]
+final readonly class OrderPage extends AbstractPageComposer {
 
     protected function taxonomyMap(): TaxonomyMap {
-        return TaxonomyMap::CONTACT;
+        return TaxonomyMap::ORDER;
     }
 
     protected function viewKey(): string {
-        return 'contactPage';
+        return 'orderPage';
     }
 }

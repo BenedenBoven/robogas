@@ -2,6 +2,8 @@
 
 namespace App\Application\Providers;
 
+use App\Domains\Audience\Contracts\AudienceRepositoryInterface;
+use App\Domains\Audience\Repositories\AudienceRepository;
 use App\Domains\Page\Contracts\PageRepositoryInterface;
 use App\Domains\Page\Repositories\PageRepository;
 use App\Domains\Service\Contracts\ServiceRepositoryInterface;
@@ -14,8 +16,9 @@ use Illuminate\Support\ServiceProvider;
 class AppServiceProvider extends ServiceProvider {
 
     private const REPOSITORIES = [
-        PageRepositoryInterface::class    => PageRepository::class,
-        ServiceRepositoryInterface::class => ServiceRepository::class,
+        AudienceRepositoryInterface::class => AudienceRepository::class,
+        PageRepositoryInterface::class     => PageRepository::class,
+        ServiceRepositoryInterface::class  => ServiceRepository::class,
     ];
 
 

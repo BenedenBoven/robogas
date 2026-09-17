@@ -1,19 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace App\Application\RequestHandlers\Service;
+namespace App\Application\RequestHandlers\Audience;
 
 use App\Domains\Audience\Contracts\AudienceRepositoryInterface;
 use App\Domains\Page\Models\Page;
-use App\Domains\Service\Contracts\ServiceRepositoryInterface;
 use BenedenBoven\Atom\Application\Models\Taxonomy;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
 
-final readonly class ListServices {
+final readonly class ListAudiences {
 
     public function __construct(
         private ResponseFactory             $responseFactory,
-        private ServiceRepositoryInterface  $serviceRepository,
         private AudienceRepositoryInterface $audienceRepository
     ) {}
 
@@ -22,12 +20,11 @@ final readonly class ListServices {
 
         /** @var Page $page */
         $page = $taxonomy->getModel();
-        $page->loadMissing('header');
+        $page->loadMissing(['header', 'images']);
 
-        return $this->responseFactory->view('services.list', [
+        return $this->responseFactory->view('audiences.list', [
             'taxonomy'  => $taxonomy,
             'page'      => $page,
-            'services'  => $this->serviceRepository->getAll(),
             'audiences' => $this->audienceRepository->getAll(),
         ]);
     }

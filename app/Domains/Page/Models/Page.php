@@ -35,10 +35,12 @@ final class Page extends AtomPage {
         $fillable = parent::getFillable();
 
         return match ($this->taxonomy_id ?? null) {
-            // "Voor wie we het doen" onder het stappenpad.
-            TaxonomyMap::SERVICES->value => [...$fillable, 'block_title', 'block_subtitle', 'block_content'],
+            // Diensten: "Voor wie we het doen" onder het stappenpad.
+            // Doelgroepen: "Staat jouw situatie er niet bij?" onder de kaarten.
+            TaxonomyMap::SERVICES->value,
+            TaxonomyMap::AUDIENCES->value => [...$fillable, 'block_title', 'block_subtitle', 'block_content'],
 
-            default                      => $fillable
+            default                       => $fillable
         };
     }
 

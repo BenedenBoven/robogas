@@ -7,7 +7,8 @@ use App\Infrastructure\Attributes\ComposesViews;
 use App\Support\TaxonomyMap;
 
 #[ComposesViews(
-    'services.list'
+    'services.list',
+    'audiences.show'
 )]
 #[ComposerDescription('De offertepagina, als bestemming voor de offerte-CTA.', 'quotePage')]
 final readonly class QuotePage extends AbstractPageComposer {
