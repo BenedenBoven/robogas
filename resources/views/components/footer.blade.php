@@ -1,27 +1,37 @@
+{{--
+    Footer: "Interesse?", de sitemap, de bedrijfsgegevens en de juridische links.
+
+    @var array<string, list<array{label: string, url: string}>> $footerColumns  @uses FooterComposer
+    @var Page|null                                              $contactPage    @uses FooterComposer
+    @var list<array{label: string, url: string}>                $legalPages     @uses FooterComposer
+    @var CompanyDetails                                         $company        @uses CompanyDetailsComposer
+--}}
 <footer>
     <section class="py-24 2xl:py-32 relative">
         <div class="bg-black w-full sm:w-[calc(100%-64px)] h-full absolute left-0 bottom-0 z-1 sm:mx-8 rounded-t-4xl"></div>
-        <div class="max-w-6xl mx-auto relative z-10 flex flex-wrap gap-16 2xl:gap-32">
+        <div class="max-w-6xl mx-auto relative z-10 flex flex-wrap min-[88rem]:flex-nowrap gap-12 2xl:gap-24">
             <div class="flex flex-col w-full lg:w-auto gap-2 grow">
                 <span class="text-white font-heading text-5xl sm:text-6xl lg:text-7xl font-extrabold">Interesse?</span>
                 <span class="font-bold font-heading uppercase text-yellow">Eén belletje en het loopt.</span>
-                <a href="" class="btn btn-primary mt-6">Contact</a>
+                @if($contactPage)
+                    <a href="{{ $contactPage->url }}" class="btn btn-primary mt-6">Contact</a>
+                @endif
             </div>
-            <div class="flex mt-auto w-auto">
-                <ul class="lg:text-right flex flex-col gap-1">
-                    <li><a href="" class="font-medium text-white hover:text-yellow duration-300 transition-all">Gastanks</a></li>
-                    <li><a href="" class="font-medium text-white hover:text-yellow duration-300 transition-all">Gasflessen</a></li>
-                    <li><a href="" class="font-medium text-white hover:text-yellow duration-300 transition-all">Onze kennis</a></li>
-                    <li><a href="" class="font-medium text-white hover:text-yellow duration-300 transition-all">Over ons</a></li>
-                    <li><a href="" class="font-medium text-white hover:text-yellow duration-300 transition-all">Overstappen</a></li>
-                    <li><a href="" class="font-medium text-white hover:text-yellow duration-300 transition-all"> Vacatures</a></li>
-                    <li><a href="" class="font-medium text-white hover:text-yellow duration-300 transition-all">Gas bestellen</a></li>
-                    <li><a href="" class="font-medium text-white hover:text-yellow duration-300 transition-all">Mijn Robogas</a></li>
-                </ul>
+            <div class="grid grid-cols-2 sm:flex sm:flex-wrap min-[88rem]:flex-nowrap gap-x-8 2xl:gap-x-12 gap-y-8 items-start mt-auto">
+                @foreach($footerColumns as $footerHeading => $footerLinks)
+                    <div class="flex flex-col gap-1.5">
+                        <span class="font-heading font-extrabold uppercase text-yellow text-sm mb-1 whitespace-nowrap">{{ $footerHeading }}</span>
+                        <ul class="flex flex-col gap-1">
+                            @foreach($footerLinks as $footerLink)
+                                <li><a href="{{ $footerLink['url'] }}" class="whitespace-nowrap font-medium text-white hover:text-yellow duration-300 transition-all">{{ $footerLink['label'] }}</a></li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endforeach
             </div>
-            <div class="flex flex-col gap-2 mt-auto w-auto">
-                <a href="/" class="group">
-                    <svg id="nav-logo" class="h-8 w-auto" viewBox="0 0 287.6 51.7">
+            <div class="flex flex-col gap-2 mt-auto w-auto lg:items-end">
+                <a href="/" class="group" title="Ga naar home">
+                    <svg class="h-8 w-auto" viewBox="0 0 287.6 51.7" role="img" aria-label="RoboGas">
                         <g>
                             <path class="fill-white"
                                   d="M49.9,23.8h4.7c1.3,0,2.3-.3,2.9-.9s1-1.5,1-2.7-.3-2-1-2.6c-.7-.6-1.6-1-2.9-1h-4.7s0,7.2,0,7.2ZM57.7,43.1l-6.8-12.7h-1v12.7h-9.6V8.6h15.1c2.8,0,5.1.5,7,1.4,1.9,1,3.4,2.3,4.3,4,1,1.7,1.5,3.6,1.5,5.6s-.6,4.4-1.9,6.2c-1.3,1.8-3.2,3-5.6,3.8l7.8,13.4h-10.7Z"/>
@@ -44,11 +54,11 @@
                     </svg>
                 </a>
                 <ul class="text-white lg:text-right flex flex-col gap-1">
-                    <li>Gildenstraat 20</li>
-                    <li>3861 RG Nijkerk</li>
-                    <li>The Netherlands</li>
-                    <li><a href="tel:+31332452545" class="font-medium text-white hover:text-yellow duration-300 transition-all">033 - 245 25 45</a></li>
-                    <li><a href="mailto:info@robogas.nl" class="font-medium text-white hover:text-yellow duration-300 transition-all">info@robogas.nl</a></li>
+                    <li>{{ $company->street() }}</li>
+                    <li>{{ $company->postcode() }} {{ $company->city() }}</li>
+                    <li>{{ $company->country() }}</li>
+                    <li><a href="{{ $company->phoneHref() }}" class="font-medium text-white hover:text-yellow duration-300 transition-all">{{ $company->phone() }}</a></li>
+                    <li><a href="mailto:{{ $company->email() }}" class="font-medium text-white hover:text-yellow duration-300 transition-all">{{ $company->email() }}</a></li>
                 </ul>
             </div>
         </div>
@@ -59,9 +69,10 @@
             <div class="text-xs py-6 text-black">
                 <div class="max-w-6xl mx-auto flex flex-col lg:flex-row gap-2">
                     <div class="flex flex-wrap divide-x divide-black space-x-2 grow text-black">
-                        <span class="!text-black pe-2">Copyright &copy; {{ date("Y") }} Robo Gascentrale B.V.</span>
-                        <a href="" class="pe-2 font-medium text-black hover:text-blue">Algemene voorwaarden</a>
-                        <a href="" class="pe-2 font-medium text-black hover:text-blue">Privacyverklaring</a>
+                        <span class="!text-black pe-2">Copyright &copy; {{ date("Y") }} {{ $company->name() }}</span>
+                        @foreach($legalPages as $legalLink)
+                            <a href="{{ $legalLink['url'] }}" class="pe-2 font-medium text-black hover:text-blue">{{ $legalLink['label'] }}</a>
+                        @endforeach
                     </div>
                     <a href="https://benedenboven.nl" target="_blank" class="hover:text-pearl powered-by-bb"><i class="fas fa-bolt-lightning"></i> Powered by <span class="font-medium">BenedenBoven</span></a>
                 </div>

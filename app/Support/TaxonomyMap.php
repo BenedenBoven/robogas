@@ -17,6 +17,8 @@ enum TaxonomyMap: int {
     case ORDER       = 12;
     case QUOTE       = 13;
     case MALFUNCTION = 14;
+    case TERMS       = 39;
+    case PRIVACY     = 40;
 
     public function isDeletable(): bool {
         return match ($this) {

@@ -28,7 +28,16 @@ final class FixedPagesSeeder extends Seeder {
         'ORDER'       => 'Gas bestellen',
         'QUOTE'       => 'Offerte aanvragen',
         'MALFUNCTION' => 'Storing melden',
+        'TERMS'       => 'Algemene voorwaarden',
+        'PRIVACY'     => 'Privacyverklaring',
     ];
+
+    /**
+     * Juridische teksten horen van de klant of diens jurist te komen, niet uit
+     * een seeder. Deze notitie maakt zichtbaar dat er nog tekst bij moet.
+     */
+    private const LEGAL_PLACEHOLDER = '<p><strong>Deze tekst moet nog worden aangeleverd.</strong> '
+        . 'Vervang deze alinea door de definitieve tekst voordat de website live gaat.</p>';
 
     public function run(): void {
         foreach(self::PAGES as $case => $title) {
@@ -38,7 +47,7 @@ final class FixedPagesSeeder extends Seeder {
                 $page = new Page();
                 $page->forceFill([
                     'title'           => $title,
-                    'body'            => '',
+                    'body'            => in_array($case, ['TERMS', 'PRIVACY'], true) ? self::LEGAL_PLACEHOLDER : '',
                     'visible_as_page' => 1,
                     'published'       => 1,
                 ])->save();
