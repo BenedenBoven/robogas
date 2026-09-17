@@ -4,6 +4,8 @@ namespace App\Application\Providers;
 
 use App\Domains\Audience\Contracts\AudienceRepositoryInterface;
 use App\Domains\Audience\Repositories\AudienceRepository;
+use App\Domains\Faq\Contracts\FaqThemeRepositoryInterface;
+use App\Domains\Faq\Repositories\FaqThemeRepository;
 use App\Domains\Page\Contracts\PageRepositoryInterface;
 use App\Domains\Page\Repositories\PageRepository;
 use App\Domains\Service\Contracts\ServiceRepositoryInterface;
@@ -17,6 +19,7 @@ class AppServiceProvider extends ServiceProvider {
 
     private const REPOSITORIES = [
         AudienceRepositoryInterface::class => AudienceRepository::class,
+        FaqThemeRepositoryInterface::class => FaqThemeRepository::class,
         PageRepositoryInterface::class     => PageRepository::class,
         ServiceRepositoryInterface::class  => ServiceRepository::class,
     ];

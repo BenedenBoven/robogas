@@ -36,6 +36,7 @@ final class Service extends AtomModel {
     protected       $fillable      = ['title', 'icon', 'summary', 'body', 'we_do', 'we_need', 'header_id'];
     protected       $guarded       = ['_token', '_method'];
     protected       $isPublishable = true;
+    protected array $excludedRelationships = [];
     protected array $validation    = [
         'title' => 'required',
         'icon'  => 'required',

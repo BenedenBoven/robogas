@@ -59,6 +59,14 @@ final readonly class CompanyDetails {
         return $this->setting('contact.email', (string)config('company.email'));
     }
 
+    public function openingHours(): string {
+        return (string)config('company.opening_hours');
+    }
+
+    public function mapsEmbedUrl(): string {
+        return (string)config('company.maps_embed_url');
+    }
+
     public function portalUrl(): ?string {
         $url = config('company.portal_url');
 

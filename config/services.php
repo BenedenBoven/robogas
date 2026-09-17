@@ -28,6 +28,17 @@ return [
         'key' => env('RESEND_KEY'),
     ],
 
+    /*
+     * reCAPTCHA v2 met onzichtbare badge. De sleutel staat in het formulier, het
+     * geheim controleert de server. Zonder sleutels werken de formulieren
+     * gewoon, alleen zonder captcha; zie VerifyRecaptcha.
+     */
+    'recaptcha' => [
+        'key'           => env('RECAPTCHA_KEY'),
+        'secret'        => env('RECAPTCHA_SECRET'),
+        'minimal_score' => (float)env('RECAPTCHA_MINIMAL_SCORE', 0.5),
+    ],
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),

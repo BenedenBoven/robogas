@@ -3,6 +3,7 @@
 use App\Application\RequestHandlers\Audience\ListAudiences;
 use App\Application\RequestHandlers\Audience\ShowAudience;
 use App\Application\RequestHandlers\Default\ShowDefault;
+use App\Application\RequestHandlers\Form\ShowFormPage;
 use App\Application\RequestHandlers\Home\ShowHome;
 use App\Application\RequestHandlers\Service\ListServices;
 use App\Application\RequestHandlers\Service\ShowService;
@@ -21,10 +22,14 @@ $taxonomy = TaxonomyDiscoverer::getCurrentInstance();
 if($taxonomy !== null) {
 
     $specific = match ($taxonomy->id) {
-        TaxonomyMap::HOME->value      => $router->get($taxonomy->url, ShowHome::class),
-        TaxonomyMap::SERVICES->value  => $router->get($taxonomy->url, ListServices::class),
-        TaxonomyMap::AUDIENCES->value => $router->get($taxonomy->url, ListAudiences::class),
-        default                       => null
+        TaxonomyMap::HOME->value        => $router->get($taxonomy->url, ShowHome::class),
+        TaxonomyMap::SERVICES->value    => $router->get($taxonomy->url, ListServices::class),
+        TaxonomyMap::AUDIENCES->value   => $router->get($taxonomy->url, ListAudiences::class),
+        TaxonomyMap::CONTACT->value,
+        TaxonomyMap::ORDER->value,
+        TaxonomyMap::QUOTE->value,
+        TaxonomyMap::MALFUNCTION->value => $router->get($taxonomy->url, ShowFormPage::class),
+        default                         => null
     };
 
     if($specific === null) {

@@ -9,7 +9,9 @@ use Illuminate\Cache\CacheManager;
 use Illuminate\View\View;
 
 #[ComposesViews(
-    'components.footer'
+    'components.footer',
+    'contact.show',
+    'form-pages.show'
 )]
 #[ComposerDescription('De bedrijfsgegevens uit de instellingen, met config/company.php als terugval.', 'company')]
 final readonly class CompanyDetailsComposer extends AbstractMemoizedComposer {

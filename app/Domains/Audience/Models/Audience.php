@@ -31,6 +31,7 @@ final class Audience extends AtomModel {
     protected       $fillable      = ['title', 'long_title', 'icon', 'summary', 'benefits', 'uses', 'body', 'header_id'];
     protected       $guarded       = ['_token', '_method'];
     protected       $isPublishable = true;
+    protected array $excludedRelationships = [];
     protected array $validation    = [
         'title' => 'required',
         'icon'  => 'required',

@@ -7,17 +7,16 @@ use App\Infrastructure\Attributes\ComposesViews;
 use App\Support\TaxonomyMap;
 
 #[ComposesViews(
-    'audiences.show',
-    'contact.show'
+    'components.form.privacy'
 )]
-#[ComposerDescription('De pagina Gas bestellen, als bestemming voor bestelknoppen.', 'orderPage')]
-final readonly class OrderPage extends AbstractPageComposer {
+#[ComposerDescription('De privacyverklaring, voor de link bij het vinkje onder een formulier.', 'privacyPage')]
+final readonly class PrivacyPage extends AbstractPageComposer {
 
     protected function taxonomyMap(): TaxonomyMap {
-        return TaxonomyMap::ORDER;
+        return TaxonomyMap::PRIVACY;
     }
 
     protected function viewKey(): string {
-        return 'orderPage';
+        return 'privacyPage';
     }
 }

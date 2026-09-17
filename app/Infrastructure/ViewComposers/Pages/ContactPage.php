@@ -8,7 +8,8 @@ use App\Support\TaxonomyMap;
 
 #[ComposesViews(
     'services.list',
-    'audiences.list'
+    'audiences.list',
+    'form-pages.show'
 )]
 #[ComposerDescription('De contactpagina, als bestemming voor contactknoppen.', 'contactPage')]
 final readonly class ContactPage extends AbstractPageComposer {
