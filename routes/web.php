@@ -2,6 +2,9 @@
 
 use App\Application\RequestHandlers\Default\ShowDefault;
 use App\Application\RequestHandlers\Home\ShowHome;
+use App\Application\RequestHandlers\Service\ListServices;
+use App\Application\RequestHandlers\Service\ShowService;
+use App\Domains\Service\Models\Service;
 use App\Support\TaxonomyMap;
 use BenedenBoven\Atom\Application\RequestHandlers\ResizeController;
 use BenedenBoven\Atom\Application\Services\TaxonomyDiscoverer;
@@ -15,13 +18,15 @@ $taxonomy = TaxonomyDiscoverer::getCurrentInstance();
 if($taxonomy !== null) {
 
     $specific = match ($taxonomy->id) {
-        TaxonomyMap::HOME->value => $router->get($taxonomy->url, ShowHome::class),
-        default                  => null
+        TaxonomyMap::HOME->value     => $router->get($taxonomy->url, ShowHome::class),
+        TaxonomyMap::SERVICES->value => $router->get($taxonomy->url, ListServices::class),
+        default                      => null
     };
 
     if($specific === null) {
         match (get_class($taxonomy->getModel())) {
-            default => $router->any('{all}', ShowDefault::class)->where('all', '.*')
+            Service::class => $router->any('{all}', ShowService::class)->where('all', '.*'),
+            default        => $router->any('{all}', ShowDefault::class)->where('all', '.*')
         };
     }
 }
