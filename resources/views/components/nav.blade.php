@@ -1,3 +1,20 @@
+{{--
+    Hoofdnavigatie: menu uit Atom, mega-menu onder Diensten en Doelgroepen, de knoppen
+    Gas bestellen en Mijn Robogas, en het mobiele menu. Het gedrag staat in resources/js/nav.js.
+
+    @var Collection<Taxonomy>                                    $navigationItems  @uses MainNavigationComposer
+    @var array<int, array{heading: string, links: list<array>}>  $megaMenus        per taxonomy-id  @uses MainNavigationComposer
+    @var list<array{label: string, url: string}>                 $arrangeLinks     @uses MainNavigationComposer
+    @var Page|null                                               $orderPage        @uses MainNavigationComposer
+    @var string|null                                             $portalUrl        @uses MainNavigationComposer
+    @var Taxonomy|null                                           $taxonomy         @uses geërfde scope van de view
+--}}
+@php
+    // Een menu-item is actief als de huidige pagina eronder valt.
+    // aria-current alleen op de pagina zelf, niet op het item erboven.
+    $navActiveIds = isset($taxonomy) ? $taxonomy->breadcrumb()->pluck('id')->map(fn($id) => (int)$id)->all() : [];
+    $navCurrentId = isset($taxonomy) ? (int)$taxonomy->id : null;
+@endphp
 <nav class="fixed top-0 w-full z-50 transition-transform navbar bg-white shadow-xl" id="nav">
     <div class="mx-auto max-w-7xl relative">
         <div class="flex h-22 xl:h-27 justify-between relative">
@@ -28,52 +45,49 @@
             </div>
 
             <div class="hidden xl:flex items-center mainnav gap-8">
-                <div class="group h-full">
-                    <a href="#" class="inline-flex items-center text-black h-full services-dropdown-trigger font-heading font-extrabold">
-                        <span class="group-hover:text-blue font-heading">Gastanks</span>
-                    </a>
-                    <div class="education-dropdown invisible opacity-0 group-hover:opacity-100 group-hover:visible transition-all fixed left-1/2 -translate-x-1/2 w-[100vw] bg-grey z-40 shadow-xl">
-                        <div class="w-1/3 h-full absolute top-0 right-0 bg-yellow z-1"></div>
-                        <div class="mx-auto max-w-7xl py-16 grid grid-cols-2 gap-32 relative z-20">
-                            <div>
-                                <h5 class="text-black text-2xl lg:text-3xl 2xl:text-4xl font-black italic wrap-break-word sm:wrap-normal hyphens-auto sm:hyphens-none mb-8">
-                                    Expertises
-                                </h5>
-                                <div class="flex flex-wrap gap-4">
-                                    <a href="#" class="btn btn-primary btn-lg">123</a>
-                                </div>
-                            </div>
-                            <div>
-                                <h5 class="text-black text-2xl lg:text-3xl 2xl:text-4xl font-black italic wrap-break-word sm:wrap-normal hyphens-auto sm:hyphens-none mb-8">
-                                    Diensten
-                                </h5>
-                                <div class="flex flex-wrap gap-4">
-                                    <a href="#" class="btn btn-secondary btn-lg">345</a>
+                @foreach($navigationItems as $navItem)
+                    @php $navMega = $megaMenus[$navItem->id] ?? null; @endphp
+                    @if($navMega)
+                        <div class="group h-full">
+                            <a href="{{ $navItem->url }}" @if($navItem->id === $navCurrentId) aria-current="page" @endif @class([
+                                'inline-flex items-center h-full services-dropdown-trigger font-heading font-extrabold',
+                                'text-blue' => in_array($navItem->id, $navActiveIds, true),
+                                'text-black' => !in_array($navItem->id, $navActiveIds, true),
+                            ])>
+                                <span class="group-hover:text-blue font-heading">{{ $navItem->title }}</span>
+                            </a>
+                            <div class="invisible opacity-0 group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all fixed left-1/2 -translate-x-1/2 w-[100vw] bg-grey z-40 shadow-xl">
+                                <div class="w-1/3 h-full absolute top-0 right-0 bg-yellow z-1"></div>
+                                <div class="mx-auto max-w-7xl py-16 grid grid-cols-2 gap-32 relative z-20">
+                                    <div>
+                                        <span class="block text-black text-2xl lg:text-3xl 2xl:text-4xl font-heading font-black italic mb-8">{{ $navMega['heading'] }}</span>
+                                        <div class="flex flex-wrap gap-4">
+                                            @foreach($navMega['links'] as $navMegaLink)
+                                                <a href="{{ $navMegaLink['url'] }}" class="btn btn-primary">{{ $navMegaLink['label'] }}</a>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    @if($arrangeLinks)
+                                        <div>
+                                            <span class="block text-black text-2xl lg:text-3xl 2xl:text-4xl font-heading font-black italic mb-8">Direct regelen</span>
+                                            <div class="flex flex-wrap gap-4">
+                                                @foreach($arrangeLinks as $navArrangeLink)
+                                                    <a href="{{ $navArrangeLink['url'] }}" class="btn btn-secondary">{{ $navArrangeLink['label'] }}</a>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <a href="#" class="inline-flex items-center text-black hover:text-blue group font-heading font-extrabold">
-                    Gasflessen
-                </a>
-                <a href="#" class="inline-flex items-center text-black hover:text-blue group font-heading font-extrabold">
-                    Onze kennis
-                </a>
-                <a href="#" class="inline-flex items-center text-black hover:text-blue group font-heading font-extrabold">
-                    Over ons
-                </a>
-                <a href="#" class="inline-flex items-center text-black hover:text-blue group font-heading font-extrabold">
-                    Overstappen
-                </a>
-                <a href="#" class="inline-flex items-center text-black hover:text-blue group font-heading font-extrabold">
-                    Vacatures
-                    <span class="bg-yellow rounded-full w-6 h-6 flex justify-center items-center ml-2 group-hover:rotate-360 transition-all duration-500">
-                        <span class="block text-sm font-bold text-black">
-                            4
-                        </span>
-                    </span>
-                </a>
+                    @else
+                        <a href="{{ $navItem->url }}" @if($navItem->id === $navCurrentId) aria-current="page" @endif @class([
+                            'inline-flex items-center hover:text-blue group font-heading font-extrabold',
+                            'text-blue' => in_array($navItem->id, $navActiveIds, true),
+                            'text-black' => !in_array($navItem->id, $navActiveIds, true),
+                        ])>{{ $navItem->title }}</a>
+                    @endif
+                @endforeach
             </div>
             <div class="-mr-2 flex items-center xl:hidden">
                 <button id="mobile-menu-toggle"
@@ -94,8 +108,9 @@
         </div>
         <div class="static xl:relative">
             <div class="absolute top-24 xl:top-0 right-0 flex flex-col items-end gap-2 xl:flex-row xl:items-center pointer-events-auto translate-x-1">
+                @if($orderPage)
                 <div class="relative flex items-center overflow-hidden drop-shadow-lg translate-x-[calc(100%-3rem)] hover:translate-x-0 xl:translate-x-0 transition-transform duration-300 group">
-                    <a href="#" class="absolute inset-0 z-20 cursor-pointer" aria-label="Gas bestellen"></a>
+                    <a href="{{ $orderPage->url }}" class="absolute inset-0 z-20 cursor-pointer" aria-label="Gas bestellen"></a>
                     <span class="flex h-12 w-12 shrink-0 items-center justify-center bg-black group-hover:bg-blue transition-all duration-300 rounded-l-xl xl:rounded-lb-xl xl:rounded-tl-none">
                     <i class="fa-solid fa-fire text-white"></i>
                 </span>
@@ -103,9 +118,11 @@
                     Gas bestellen
                 </span>
                 </div>
+                @endif
 
+                @if($portalUrl)
                 <div class="relative flex items-center overflow-hidden drop-shadow-lg translate-x-[calc(100%-3rem)] hover:translate-x-0 xl:translate-x-0 transition-transform duration-300 group">
-                    <a href="#" class="absolute inset-0 z-20 cursor-pointer" aria-label="Mijn Robogas"></a>
+                    <a href="{{ $portalUrl }}" class="absolute inset-0 z-20 cursor-pointer" aria-label="Mijn Robogas"></a>
                     <span class="flex h-12 w-12 shrink-0 items-center justify-center bg-yellow group-hover:bg-blue-light transition-all duration-300 rounded-l-xl xl:rounded-lb-xl xl:rounded-tl-none">
                     <i class="fa-etch fa-solid fa-user text-black group-hover:text-white transition-all duration-300"></i>
                 </span>
@@ -113,37 +130,40 @@
                     Mijn Robogas
                 </span>
                 </div>
+                @endif
             </div>
         </div>
     </div>
     <div id="mobile-menu" class="opacity-0 max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white">
         <div class="max-w-7xl mx-auto">
-            <div class="space-y-3 pt-8 pb-12 flex flex-col gap-2">
-                <div class="flex flex-col gap-4">
-                    <a href="#" class="inline-flex items-center text-black hover:text-yellow group">
-                        23
-                    </a>
-                    <div class="pl-4 flex flex-col gap-3">
-                        <span class="text-sm font-semibold uppercase tracking-wide text-grey-dark">Expertises</span>
+            <div class="pt-8 pb-12 flex flex-col gap-5">
+                @foreach($navigationItems as $navItem)
+                    @php $navMega = $megaMenus[$navItem->id] ?? null; @endphp
+                    <div class="flex flex-col gap-3">
+                        <a href="{{ $navItem->url }}" @class([
+                            'inline-flex items-center font-heading font-extrabold text-xl hover:text-blue',
+                            'text-blue' => in_array($navItem->id, $navActiveIds, true),
+                            'text-black' => !in_array($navItem->id, $navActiveIds, true),
+                        ])>{{ $navItem->title }}</a>
+                        @if($navMega && $navMega['links'])
+                            <div class="flex flex-wrap gap-3">
+                                @foreach($navMega['links'] as $navMegaLink)
+                                    <a href="{{ $navMegaLink['url'] }}" class="btn btn-secondary shadow-none">{{ $navMegaLink['label'] }}</a>
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
+                @endforeach
+                @if($arrangeLinks)
+                    <div class="flex flex-col gap-3 pt-2">
+                        <span class="font-heading font-extrabold text-xl text-black">Direct regelen</span>
                         <div class="flex flex-wrap gap-3">
-                            <a href="#" class="btn btn-primary">ttrr</a>
+                            @foreach($arrangeLinks as $navArrangeLink)
+                                <a href="{{ $navArrangeLink['url'] }}" class="btn btn-dark shadow-none">{{ $navArrangeLink['label'] }}</a>
+                            @endforeach
                         </div>
                     </div>
-                    <div class="pl-4 flex flex-col gap-3">
-                        <span class="text-sm font-semibold uppercase tracking-wide text-grey-dark">Diensten</span>
-                        <div class="flex flex-wrap gap-3">
-                            <a href="#" class="btn btn-secondary">fiets</a>
-                        </div>
-                    </div>
-                </div>
-                <a href="#" class="inline-flex items-center text-black hover:text-yellow group">
-                    1222
-                    <span class="bg-yellow rounded-full w-6 h-6 flex justify-center items-center ml-2 group-hover:rotate-360 transition-all duration-500">
-                        <span class="block text-sm font-bold text-black">
-                            123
-                        </span>
-                    </span>
-                </a>
+                @endif
             </div>
         </div>
     </div>

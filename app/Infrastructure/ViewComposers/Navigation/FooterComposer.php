@@ -48,7 +48,8 @@ final readonly class FooterComposer extends AbstractMemoizedComposer {
 
         $arrange = $this->linksTo($pages, self::ARRANGE);
 
-        if(($portalUrl = $this->companyDetails->portalUrl()) !== null) {
+        // Zolang het adres van het portaal onbekend is, gaat de link naar contact.
+        if(($portalUrl = $this->companyDetails->portalUrl() ?? $pages->get(TaxonomyMap::CONTACT->value)?->url) !== null) {
             $arrange[] = ['label' => 'Mijn Robogas', 'url' => $portalUrl];
         }
 

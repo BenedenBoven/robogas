@@ -24,7 +24,7 @@ return [
 
     /**
      * Het klantportaal Mijn Robogas staat buiten deze website. Zolang er geen
-     * adres is ingevuld, tonen we de links ernaar niet.
+     * adres is ingevuld, gaan de links ernaar naar de contactpagina.
      */
     'portal_url' => env('ROBOGAS_PORTAL_URL'),
 

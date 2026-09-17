@@ -15,13 +15,13 @@ use Illuminate\Database\Seeder;
  */
 final class FixedPagesSeeder extends Seeder {
 
-    /** TaxonomyMap-naam => paginatitel */
+    /** TaxonomyMap-naam => paginatitel. De titel is ook het label in het menu. */
     private const PAGES = [
         'SERVICES'    => 'Diensten',
         'AUDIENCES'   => 'Doelgroepen',
         'KNOWLEDGE'   => 'Onze kennis',
         'ABOUT'       => 'Over ons',
-        'CAREERS'     => 'Werken bij RoboGas',
+        'CAREERS'     => 'Vacatures',
         'BIOGAS'      => 'Biogas',
         'FAQ'         => 'Veelgestelde vragen',
         'CONTACT'     => 'Contact',
@@ -48,6 +48,7 @@ final class FixedPagesSeeder extends Seeder {
                 $page->forceFill([
                     'title'           => $title,
                     'body'            => in_array($case, ['TERMS', 'PRIVACY'], true) ? self::LEGAL_PLACEHOLDER : '',
+                    'long_title'      => $case === 'CAREERS' ? 'Werken bij RoboGas' : null,
                     'visible_as_page' => 1,
                     'published'       => 1,
                 ])->save();
