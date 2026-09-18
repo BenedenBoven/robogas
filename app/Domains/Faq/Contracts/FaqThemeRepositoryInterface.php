@@ -15,4 +15,12 @@ interface FaqThemeRepositoryInterface {
      */
     public function getForPage(int $pageId): Collection;
 
+    /**
+     * Alle gepubliceerde thema's met hun vragen, voor de pagina Veelgestelde
+     * vragen. Thema's zonder vragen vallen weg.
+     *
+     * @return Collection<int, FaqTheme>
+     */
+    public function getAll(): Collection;
+
 }

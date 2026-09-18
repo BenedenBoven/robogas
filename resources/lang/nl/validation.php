@@ -194,6 +194,7 @@ return [
 		'block_title'           => 'bloktitel',
 		'block_subtitle'        => 'blok-ondertitel',
 		'block_content'         => 'bloktekst',
+		'color'                 => 'kaartkleur',
 		// Formuliervelden; deze namen staan ook in de mail van een inzending.
 		'comments'              => 'toelichting',
 		'customer_type'         => 'klant',

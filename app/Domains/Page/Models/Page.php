@@ -46,10 +46,12 @@ final class Page extends AtomPage {
 
         return match ($this->taxonomy_id ?? null) {
             // Diensten: "Voor wie we het doen" onder het stappenpad.
-            // Doelgroepen: "Staat jouw situatie er niet bij?" onder de kaarten.
+            // Voor wie: "Staat jouw situatie er niet bij?" onder de kaarten.
+            // Onze kennis: "Staat je vraag er niet bij?" onder de artikelen.
             // Formulierpagina's: titel, intro en regel boven de knop van het formulierpaneel.
             TaxonomyMap::SERVICES->value,
             TaxonomyMap::AUDIENCES->value,
+            TaxonomyMap::KNOWLEDGE->value,
             TaxonomyMap::CONTACT->value,
             TaxonomyMap::ORDER->value,
             TaxonomyMap::QUOTE->value,

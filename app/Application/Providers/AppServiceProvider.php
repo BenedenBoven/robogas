@@ -2,6 +2,8 @@
 
 namespace App\Application\Providers;
 
+use App\Domains\Article\Contracts\ArticleRepositoryInterface;
+use App\Domains\Article\Repositories\ArticleRepository;
 use App\Domains\Audience\Contracts\AudienceRepositoryInterface;
 use App\Domains\Audience\Repositories\AudienceRepository;
 use App\Domains\Faq\Contracts\FaqThemeRepositoryInterface;
@@ -18,6 +20,7 @@ use Illuminate\Support\ServiceProvider;
 class AppServiceProvider extends ServiceProvider {
 
     private const REPOSITORIES = [
+        ArticleRepositoryInterface::class  => ArticleRepository::class,
         AudienceRepositoryInterface::class => AudienceRepository::class,
         FaqThemeRepositoryInterface::class => FaqThemeRepository::class,
         PageRepositoryInterface::class     => PageRepository::class,

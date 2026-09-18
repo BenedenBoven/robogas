@@ -18,6 +18,14 @@ final readonly class FaqThemeRepository implements FaqThemeRepositoryInterface {
             ->values();
     }
 
+    public function getAll(): Collection {
+        return $this->getBaseQuery()
+            ->orderBy('rg_faq_themes.priority')
+            ->get()
+            ->filter(fn(FaqTheme $theme) => $theme->faqs->isNotEmpty())
+            ->values();
+    }
+
     private function getBaseQuery(): Builder {
         return FaqTheme::query()->published()->with('faqs');
     }

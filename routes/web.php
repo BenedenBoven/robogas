@@ -5,8 +5,12 @@ use App\Application\RequestHandlers\Audience\ShowAudience;
 use App\Application\RequestHandlers\Default\ShowDefault;
 use App\Application\RequestHandlers\Form\ShowFormPage;
 use App\Application\RequestHandlers\Home\ShowHome;
+use App\Application\RequestHandlers\Knowledge\ListArticles;
+use App\Application\RequestHandlers\Knowledge\ShowArticle;
+use App\Application\RequestHandlers\Knowledge\ShowFaq;
 use App\Application\RequestHandlers\Service\ListServices;
 use App\Application\RequestHandlers\Service\ShowService;
+use App\Domains\Article\Models\Article;
 use App\Domains\Audience\Models\Audience;
 use App\Domains\Service\Models\Service;
 use App\Support\TaxonomyMap;
@@ -25,6 +29,8 @@ if($taxonomy !== null) {
         TaxonomyMap::HOME->value        => $router->get($taxonomy->url, ShowHome::class),
         TaxonomyMap::SERVICES->value    => $router->get($taxonomy->url, ListServices::class),
         TaxonomyMap::AUDIENCES->value   => $router->get($taxonomy->url, ListAudiences::class),
+        TaxonomyMap::KNOWLEDGE->value   => $router->get($taxonomy->url, ListArticles::class),
+        TaxonomyMap::FAQ->value         => $router->get($taxonomy->url, ShowFaq::class),
         TaxonomyMap::CONTACT->value,
         TaxonomyMap::ORDER->value,
         TaxonomyMap::QUOTE->value,
@@ -36,6 +42,7 @@ if($taxonomy !== null) {
         match (get_class($taxonomy->getModel())) {
             Service::class  => $router->any('{all}', ShowService::class)->where('all', '.*'),
             Audience::class => $router->any('{all}', ShowAudience::class)->where('all', '.*'),
+            Article::class  => $router->any('{all}', ShowArticle::class)->where('all', '.*'),
             default         => $router->any('{all}', ShowDefault::class)->where('all', '.*')
         };
     }

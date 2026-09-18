@@ -2,6 +2,7 @@
 
 namespace App\Domains\Audience\Models;
 
+use App\Domains\Article\Models\Article;
 use App\Domains\Service\Models\Service;
 use App\Infrastructure\Traits\HasLineLists;
 use BenedenBoven\Atom\Application\Models\AtomModel;
@@ -31,7 +32,8 @@ final class Audience extends AtomModel {
     protected       $fillable      = ['title', 'long_title', 'icon', 'summary', 'benefits', 'uses', 'body', 'header_id'];
     protected       $guarded       = ['_token', '_method'];
     protected       $isPublishable = true;
-    protected array $excludedRelationships = [];
+    /** Artikelen koppel je vanaf het artikel; hier alleen om te tonen. */
+    protected array $excludedRelationships = ['articles'];
     protected array $validation    = [
         'title' => 'required',
         'icon'  => 'required',
@@ -48,6 +50,11 @@ final class Audience extends AtomModel {
     public function services(): BelongsToMany {
         return $this->belongsToMany(Service::class, 'rg_audiences_services', 'audience_id', 'service_id')
             ->withTimestamps()->published()->joined()->orderBy('rg_services.priority');
+    }
+
+    public function articles(): BelongsToMany {
+        return $this->belongsToMany(Article::class, 'rg_articles_audiences', 'audience_id', 'article_id')
+            ->withTimestamps()->published()->joined();
     }
 
     /** Het svg-bestand voor Vite::asset(). */

@@ -7,20 +7,16 @@ use App\Infrastructure\Attributes\ComposesViews;
 use App\Support\TaxonomyMap;
 
 #[ComposesViews(
-    'services.list',
-    'services.show',
-    'audiences.show',
-    'contact.show',
-    'knowledge.show'
+    'knowledge.list'
 )]
-#[ComposerDescription('De offertepagina, als bestemming voor de offerte-CTA.', 'quotePage')]
-final readonly class QuotePage extends AbstractPageComposer {
+#[ComposerDescription('De pagina Veelgestelde vragen, als bestemming vanaf Onze kennis.', 'faqPage')]
+final readonly class FaqPage extends AbstractPageComposer {
 
     protected function taxonomyMap(): TaxonomyMap {
-        return TaxonomyMap::QUOTE;
+        return TaxonomyMap::FAQ;
     }
 
     protected function viewKey(): string {
-        return 'quotePage';
+        return 'faqPage';
     }
 }

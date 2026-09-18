@@ -11,7 +11,8 @@ use Illuminate\View\View;
 #[ComposesViews(
     'components.footer',
     'contact.show',
-    'form-pages.show'
+    'form-pages.show',
+    'knowledge.faq'
 )]
 #[ComposerDescription('De bedrijfsgegevens uit de instellingen, met config/company.php als terugval.', 'company')]
 final readonly class CompanyDetailsComposer extends AbstractMemoizedComposer {

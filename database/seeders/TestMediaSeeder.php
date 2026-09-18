@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Domains\Article\Models\Article;
 use App\Domains\Audience\Models\Audience;
 use App\Domains\Page\Models\Page;
 use App\Domains\Service\Models\Service;
@@ -28,6 +29,13 @@ final class TestMediaSeeder extends Seeder {
 
     /** De enige foto uit het ontwerp; alle plekken krijgen dezelfde. */
     private const BEELD = 'demo-foto.jpg';
+
+    /** Kennisartikelen die in het ontwerp een foto hebben; de rest toont een kleur. */
+    private const ARTIKELEN_MET_FOTO = [
+        'Hoe je jouw cv-ketel ombouwt zodat hij werkt op propaangas',
+        'Hoe wij werken met biopropaan',
+        'Bakkerij Broodje werkt met ovens op propaangas',
+    ];
 
     /** Vaste pagina's met een headerbeeld in het ontwerp. */
     private const PAGINAS_MET_HEADER = [TaxonomyMap::SERVICES, TaxonomyMap::AUDIENCES, TaxonomyMap::CONTACT];
@@ -58,6 +66,10 @@ final class TestMediaSeeder extends Seeder {
             $this->maakMedia($audience, 'Beeld ' . $audience->title);
         }
 
+        foreach(Article::query()->whereIn('title', self::ARTIKELEN_MET_FOTO)->get() as $article) {
+            $this->zetHeader($article);
+        }
+
         foreach(self::PAGINAS_MET_HEADER as $map) {
             $this->zetHeader($this->pagina($map));
         }
@@ -74,7 +86,7 @@ final class TestMediaSeeder extends Seeder {
         $ids = Media::query()->where('file', 'like', '%/' . self::VOORVOEGSEL . '%')->pluck('id')->all();
 
         if($ids !== []) {
-            foreach([Page::class, Service::class, Audience::class] as $klasse) {
+            foreach([Page::class, Service::class, Audience::class, Article::class] as $klasse) {
                 $klasse::query()->whereIn('header_id', $ids)->update(['header_id' => null]);
             }
 
