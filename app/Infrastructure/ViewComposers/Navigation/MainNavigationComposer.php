@@ -53,6 +53,8 @@ final readonly class MainNavigationComposer extends AbstractMemoizedComposer {
                 ],
                 TaxonomyMap::AUDIENCES->value => [
                     'heading' => 'Voor wie',
+                    // Labeltje dat bij hover boven de knop verschijnt: "Gas voor Particulier".
+                    'badge'   => 'Gas voor',
                     'links'   => $this->memoize('audiences_all', fn() => $this->audienceRepository->getAll())
                         ->map(fn($audience) => ['label' => $audience->title, 'url' => $audience->url])->all(),
                 ],

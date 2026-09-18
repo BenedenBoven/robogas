@@ -54,7 +54,7 @@
                     <div class="flex flex-wrap gap-2 items-center">
                         <span class="font-heading font-bold uppercase text-sm text-blue mr-2">Relevant voor</span>
                         @foreach($service->audiences as $relevantAudience)
-                            <a href="{{ $relevantAudience->url }}" class="inline-block bg-yellow hover:bg-yellow-400 transition-colors text-black text-sm font-bold px-3 py-2 font-heading">{{ $relevantAudience->title }}</a>
+                            @include('components.audience-label', ['labelAudience' => $relevantAudience, 'labelLink' => true])
                         @endforeach
                     </div>
                 @endif

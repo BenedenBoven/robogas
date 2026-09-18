@@ -63,7 +63,14 @@
                                         <span class="block text-black text-2xl lg:text-3xl 2xl:text-4xl font-heading font-black italic mb-8">{{ $navMega['heading'] }}</span>
                                         <div class="flex flex-wrap gap-4">
                                             @foreach($navMega['links'] as $navMegaLink)
-                                                <a href="{{ $navMegaLink['url'] }}" class="btn btn-primary">{{ $navMegaLink['label'] }}</a>
+                                                @if(!empty($navMega['badge']))
+                                                    <span class="relative inline-block group/badge">
+                                                        @include('components.hover-badge', ['badgeText' => $navMega['badge']])
+                                                        <a href="{{ $navMegaLink['url'] }}" class="btn btn-primary">{{ $navMegaLink['label'] }}</a>
+                                                    </span>
+                                                @else
+                                                    <a href="{{ $navMegaLink['url'] }}" class="btn btn-primary">{{ $navMegaLink['label'] }}</a>
+                                                @endif
                                             @endforeach
                                         </div>
                                     </div>
