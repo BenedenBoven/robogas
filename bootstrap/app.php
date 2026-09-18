@@ -84,8 +84,14 @@ return Application::configure(basePath: dirname(__DIR__))
             $taxonomy = Taxonomy::with('model')->find(TaxonomyMap::NOT_FOUND->value);
             Container::getInstance()->instance('taxonomy', $taxonomy);
 
+            // Dezelfde view als ShowDefault, dus ook dezelfde gegevens: de pagina
+            // met header en beelden al geladen (lazy loading staat uit).
+            $page = $taxonomy->getModel();
+            $page->loadMissing(['header', 'images']);
+
             return \response()->view('default.show', [
-                'taxonomy' => $taxonomy
+                'taxonomy' => $taxonomy,
+                'page'     => $page,
             ], 404);
         });
     })->create();

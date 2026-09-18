@@ -16,7 +16,8 @@ use App\Support\TaxonomyMap;
     'knowledge.faq',
     'vacancies.list',
     'about.show',
-    'biogas.show'
+    'biogas.show',
+    'default.show'
 )]
 #[ComposerDescription('De contactpagina, als bestemming voor contactknoppen.', 'contactPage')]
 final readonly class ContactPage extends AbstractPageComposer {
