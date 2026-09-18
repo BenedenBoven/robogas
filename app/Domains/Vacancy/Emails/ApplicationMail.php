@@ -30,6 +30,10 @@ final class ApplicationMail extends Mailable {
             'form'         => $this->form,
             'vacancyTitle' => $this->vacancyTitle,
             'toHost'       => $this->toHost,
+            // Staat de map in AUTO_DELETE_FILE_FOLDERS, dan ruimt Atom de bestanden op; zie config/atom-files.php.
+            'deleteAfter'  => in_array(StoreApplicationFiles::FOLDER, (array)config('atom-files.auto_delete.folders'), true)
+                ? (int)config('atom-files.auto_delete.days')
+                : null,
             'fileLinks'    => array_map(
                 static fn(string $file) => [
                     'name' => $file,

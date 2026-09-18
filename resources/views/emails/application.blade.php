@@ -8,6 +8,7 @@
     @var string                                 $vacancyTitle  @uses ApplicationMail
     @var bool                                   $toHost        @uses ApplicationMail
     @var list<array{name: string, url: string}> $fileLinks     @uses ApplicationMail
+    @var int|null                               $deleteAfter   dagen tot Atom de bestanden wist  @uses ApplicationMail
 --}}
 @component('mail::message')
 @if($toHost)
@@ -33,7 +34,7 @@ Bedankt voor je sollicitatie op de vacature **{{ $vacancyTitle }}**. We hebben a
 @endforeach
 ## Bestanden
 @if($toHost)
-Log eerst in op Atom; daarna opent de link het bestand.
+Log eerst in op Atom; daarna opent de link het bestand.@if($deleteAfter) De bestanden worden na {{ $deleteAfter }} dagen automatisch verwijderd. Bewaar ze zelf als je ze langer nodig hebt.@endif
 
 @foreach($fileLinks as $fileLink)
 - [{{ $fileLink['name'] }}]({{ $fileLink['url'] }})
