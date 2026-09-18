@@ -1,4 +1,4 @@
-<section class="py-24 2xl:py-32 relative" data-knowledge-section>
+<section class="py-24 2xl:py-32 relative overflow-x-clip" data-knowledge-section>
     <div class="bg-blue-light-200 w-full sm:w-[calc(100%-64px)] h-full absolute left-0 bottom-0 z-1 sm:mx-8"></div>
 
     <div class="max-w-6xl mx-auto relative min-h-[900px]">
@@ -43,7 +43,7 @@
                 </span>
             </button>
 
-            <div class="absolute left-20 top-1/2 -translate-y-1/2 w-[320px]">
+            <div class="absolute left-20 top-1/2 -translate-y-1/2 w-[320px] max-w-[calc(100vw-9rem)]">
                 <div data-content>
                     <h3 class="font-bold uppercase text-blue mb-2">
                         Familiebedrijf in het midden van Nederland
@@ -71,7 +71,7 @@
                 </span>
             </button>
 
-            <div class="absolute left-20 md:left-auto md:right-20 top-1/2 -translate-y-1/2 w-[320px] text-left md:text-right">
+            <div class="absolute left-20 md:left-auto md:right-20 top-1/2 -translate-y-1/2 w-[320px] max-w-[calc(100vw-9rem)] text-left md:text-right">
                 <div data-content>
                     <h3 class="font-bold uppercase text-blue mb-2">
                         Persoonlijke service
@@ -99,7 +99,7 @@
                 </span>
             </button>
 
-            <div class="absolute left-20 top-1/2 -translate-y-1/2 w-[320px]">
+            <div class="absolute left-20 top-1/2 -translate-y-1/2 w-[320px] max-w-[calc(100vw-9rem)]">
                 <div data-content>
                     <h3 class="font-bold uppercase text-blue mb-2">
                         66 jaar ervaring
