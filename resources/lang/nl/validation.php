@@ -197,6 +197,9 @@ return [
 		'color'                 => 'kaartkleur',
 		// Formuliervelden; deze namen staan ook in de mail van een inzending.
 		'comments'              => 'toelichting',
+		'files'                 => 'bestanden',
+		'files.*'               => 'bestand',
+		'vacancy_id'            => 'vacature',
 		'customer_type'         => 'klant',
 		'customer_number'       => 'klantnummer',
 		'level'                 => 'huidige tankstand',

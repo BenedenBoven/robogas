@@ -2,6 +2,7 @@ import 'breakpoint-hint/src/tailwind';
 
 import './bootstrap';
 import './submit-form.js';
+import './file-upload.js';
 import './form-choices.js';
 import './knowledge.js';
 import './nav.js';

@@ -86,7 +86,9 @@ const toonMelding = (melding, tekst, isFout = false) => {
 
 const toonFouten = (form, fouten) => {
     for(const veld in fouten) {
-        const element = form.querySelector('[name="' + veld + '"]');
+        // Een fout bij een lijstveld heet files of files.0; het invoerveld heet files[].
+        const basis   = veld.split('.')[0];
+        const element = form.querySelector('[name="' + basis + '"]') ?? form.querySelector('[name="' + basis + '[]"]');
 
         if(element === null) {
             continue;
@@ -103,10 +105,10 @@ const toonFouten = (form, fouten) => {
         }
 
         // Bij een checkbox is het echte element verborgen; het zichtbare vakje
-        // ernaast krijgt de rode rand.
+        // ernaast krijgt de rode rand. Bij FilePond is dat het hele uploadvak.
         (element.type === 'checkbox' || element.type === 'radio'
             ? element.parentNode.querySelector('span[aria-hidden]') ?? element
-            : element).classList.add('is-invalid');
+            : element.closest('.filepond--root') ?? element).classList.add('is-invalid');
 
         const melding = fouten[veld][0];
 

@@ -3,6 +3,7 @@
 @import './buttons.css';
 @import './modulobox.css';
 @import './carousels.css';
+@import './file-upload.css';
 
 @utility max-w-7xl {
     padding: 0 6rem;

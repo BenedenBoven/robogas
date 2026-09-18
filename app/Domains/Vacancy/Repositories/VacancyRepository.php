@@ -13,6 +13,10 @@ final readonly class VacancyRepository implements VacancyRepositoryInterface {
         return $this->getBaseQuery()->orderBy('rg_vacancies.priority')->get();
     }
 
+    public function find(int $id): ?Vacancy {
+        return $this->getBaseQuery()->where('rg_vacancies.id', $id)->first();
+    }
+
     public function count(): int {
         return $this->getBaseQuery()->count();
     }

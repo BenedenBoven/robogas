@@ -14,6 +14,9 @@ interface VacancyRepositoryInterface {
      */
     public function getAll(): Collection;
 
+    /** Een gepubliceerde vacature, of null als hij offline staat of niet bestaat. */
+    public function find(int $id): ?Vacancy;
+
     /** Het aantal gepubliceerde vacatures, voor de teller in het menu. */
     public function count(): int;
 
