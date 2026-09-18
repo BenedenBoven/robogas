@@ -18,7 +18,7 @@ final class FixedPagesSeeder extends Seeder {
     /** TaxonomyMap-naam => paginatitel. De titel is ook het label in het menu. */
     private const PAGES = [
         'SERVICES'    => 'Diensten',
-        'AUDIENCES'   => 'Doelgroepen',
+        'AUDIENCES'   => 'Voor wie',
         'KNOWLEDGE'   => 'Onze kennis',
         'ABOUT'       => 'Over ons',
         'CAREERS'     => 'Vacatures',
@@ -30,6 +30,14 @@ final class FixedPagesSeeder extends Seeder {
         'MALFUNCTION' => 'Storing melden',
         'TERMS'       => 'Algemene voorwaarden',
         'PRIVACY'     => 'Privacyverklaring',
+    ];
+
+    /**
+     * Een eigen laatste url-deel, los van de titel. "Voor wie" is het label in
+     * menu en kruimelpad; /gas-voor/particulier zegt wat je er vindt.
+     */
+    private const SLUGS = [
+        'AUDIENCES' => 'gas-voor',
     ];
 
     /**
@@ -53,6 +61,11 @@ final class FixedPagesSeeder extends Seeder {
                     'published'       => 1,
                 ])->save();
                 $page->createTaxonomy(parentId: 0);
+
+                if(isset(self::SLUGS[$case])) {
+                    $page->load('taxonomy');
+                    $page->updateTaxonomy(parentId: 0, customSlug: self::SLUGS[$case]);
+                }
             }
 
             $taxonomy = $page->taxonomy()->first();

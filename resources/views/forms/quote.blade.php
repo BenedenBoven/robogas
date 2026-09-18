@@ -24,7 +24,7 @@ en de opbouw van de mail. Laat ze staan, met een regeleinde erachter.
         @include('components.form.field', ['fieldLabel' => 'Postcode en plaats', 'fieldName' => 'place', 'fieldRequired' => true])
     </div>
     <div class="grid md:grid-cols-2 gap-6">
-        @include('components.form.field', ['fieldLabel' => 'Doelgroep', 'fieldName' => 'audience', 'fieldOptions' => [...$audiences->pluck('title')->all(), 'Anders']])
+        @include('components.form.field', ['fieldLabel' => 'Voor wie is het?', 'fieldName' => 'audience', 'fieldOptions' => [...$audiences->pluck('title')->all(), 'Anders']])
         @include('components.form.field', ['fieldLabel' => 'Waar gaat het om?', 'fieldName' => 'service', 'fieldOptions' => ['Nieuwe tank plaatsen', 'Overstappen van leverancier', 'Losse levering', 'Onderhoud of keuring', 'Advies']])
     </div>
     <div class="grid md:grid-cols-2 gap-6">

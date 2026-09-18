@@ -25,7 +25,8 @@ final readonly class ListAudiences {
         return $this->responseFactory->view('audiences.list', [
             'taxonomy'  => $taxonomy,
             'page'      => $page,
-            'audiences' => $this->audienceRepository->getAll(),
+            // De foto op de kaart; alleen hier nodig, dus niet in de repository.
+            'audiences' => $this->audienceRepository->getAll()->loadMissing('header'),
         ]);
     }
 }

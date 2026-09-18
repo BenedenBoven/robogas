@@ -20,33 +20,36 @@
 
 @section('content')
     <section class="py-24 2xl:py-32 bg-white">
-        <div class="max-w-6xl mx-auto relative z-10 grid lg:grid-cols-2 gap-8">
+        <div class="max-w-6xl mx-auto relative z-10 grid md:grid-cols-2 xl:grid-cols-3 gap-8">
             @foreach($audiences as $cardAudience)
-                @php $cardTint = $loop->index % 2 === 1; @endphp
-                <div @class([
-                    'relative rounded-3xl p-8 xl:p-10 flex flex-col sm:flex-row gap-6 xl:gap-8 group hover:shadow-xl hover:-translate-y-2 duration-300 transition-all',
-                    'bg-blue-light-200 border border-blue-light-200' => $cardTint,
-                    'bg-white border border-blue-light-300' => !$cardTint,
-                ])>
-                    <a href="{{ $cardAudience->url }}" class="absolute inset-0 z-20" aria-label="{{ $cardAudience->title }}"></a>
-                    <div @class(['shrink-0 size-24 rounded-full p-5', 'bg-white' => $cardTint, 'bg-blue-light-200' => !$cardTint])>
-                        <img src="{{ Vite::asset($cardAudience->icon_asset) }}" alt="" class="w-full h-full object-contain"/>
+                <article class="relative bg-blue-light-200 hover:bg-blue-light-300 rounded-3xl p-3 hover:-translate-y-2 duration-300 transition-all flex flex-col group overflow-hidden">
+                    <a href="{{ $cardAudience->url }}" class="absolute inset-0 z-30" aria-label="{{ $cardAudience->title }}"></a>
+                    <div class="relative z-10 h-64 overflow-hidden rounded-2xl">
+                        @include('components.media-img', [
+                            'media'  => $cardAudience->header,
+                            'format' => 'sm',
+                            'class'  => 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105',
+                        ])
                     </div>
-                    <div class="flex flex-col gap-3">
-                        <h2 class="font-light text-4xl text-black">{{ $cardAudience->title }}</h2>
+                    <div class="relative z-10 -mt-10 ml-6 size-20 rounded-full bg-white p-4 ring-6 ring-blue-light-200 group-hover:ring-blue-light-300 transition-all duration-300">
+                        <img src="{{ Vite::asset($cardAudience->icon_asset) }}" alt="" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110"/>
+                    </div>
+                    <div class="relative z-10 px-6 pb-6 pt-4 flex flex-col gap-3 grow">
+                        <h2 class="font-light text-3xl text-black">{{ $cardAudience->title }}</h2>
                         @if($cardAudience->summary)
                             <p>{{ $cardAudience->summary }}</p>
                         @endif
-                        @if($cardAudience->use_items)
-                            <div class="flex flex-wrap gap-2">
-                                @foreach($cardAudience->use_items as $cardUse)
-                                    <span class="inline-block bg-yellow text-black text-sm font-bold px-3 py-2 font-heading">{{ $cardUse }}</span>
-                                @endforeach
-                            </div>
-                        @endif
-                        <span class="btn btn-dark group-hover:btn-active mt-4">Bekijk</span>
+                        <span class="mt-auto pt-2 font-heading font-bold text-blue">
+                            Bekijk <i class="fa-regular fa-arrow-right ml-1 inline-block transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"></i>
+                        </span>
                     </div>
-                </div>
+                    <div class="absolute h-2/3 w-full bottom-0 right-0 z-1 overflow-hidden pointer-events-none" aria-hidden="true">
+                        <svg class="h-full w-auto ml-auto translate-x-1/4" viewBox="0 0 28.9 51.7">
+                            <path class="fill-white/40 transition-all duration-900 group-hover:fill-white/60" d="M14.3,0L4.1,10.2c-5.5,5.5-5.5,14.4,0,20l10.2-10.2c5.5-5.5,5.5-14.4,0-20"/>
+                            <path class="fill-white/40 transition-all duration-900 group-hover:fill-white/60" d="M9.5,51.7l15.2-15.2c5.5-5.5,5.5-14.4,0-20l-15.2,15.2c-5.5,5.5-5.5,14.4,0,20"/>
+                        </svg>
+                    </div>
+                </article>
             @endforeach
         </div>
     </section>

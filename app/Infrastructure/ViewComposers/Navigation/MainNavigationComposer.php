@@ -52,7 +52,7 @@ final readonly class MainNavigationComposer extends AbstractMemoizedComposer {
                         ->map(fn($service) => ['label' => $service->title, 'url' => $service->url])->all(),
                 ],
                 TaxonomyMap::AUDIENCES->value => [
-                    'heading' => 'Doelgroepen',
+                    'heading' => 'Voor wie',
                     'links'   => $this->memoize('audiences_all', fn() => $this->audienceRepository->getAll())
                         ->map(fn($audience) => ['label' => $audience->title, 'url' => $audience->url])->all(),
                 ],

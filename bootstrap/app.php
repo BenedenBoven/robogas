@@ -74,9 +74,10 @@ return Application::configure(basePath: dirname(__DIR__))
                 $url      = ($request->path() === '/') ? '/' : '/' . $request->path();
                 $redirect = Redirect::query()->where('from', $url)->first();
 
-                // Redirect the redirect.
+                // Redirect the redirect. Pass the stored status: without it
+                // Laravel answers 302, and search engines keep the old url.
                 if(!empty($redirect)) {
-                    return app()->make(Redirector::class)->to((string)$redirect->to);
+                    return app()->make(Redirector::class)->to((string)$redirect->to, (int)($redirect->status ?: 301));
                 }
             }
 

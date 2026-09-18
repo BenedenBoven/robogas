@@ -56,7 +56,7 @@ final readonly class FooterComposer extends AbstractMemoizedComposer {
         $columns = array_filter([
             'Diensten'     => $this->memoize('services_all', fn() => $this->serviceRepository->getAll())
                 ->map(fn($service) => ['label' => $service->title, 'url' => $service->url])->all(),
-            'Doelgroepen'  => $this->memoize('audiences_all', fn() => $this->audienceRepository->getAll())
+            'Voor wie'     => $this->memoize('audiences_all', fn() => $this->audienceRepository->getAll())
                 ->map(fn($audience) => ['label' => $audience->title, 'url' => $audience->url])->all(),
             'Regelen'      => $arrange,
             'Over RoboGas' => $this->linksTo($pages, self::ABOUT),

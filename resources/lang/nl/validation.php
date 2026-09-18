@@ -203,7 +203,7 @@ return [
 		'usage'                 => 'verwacht jaarverbruik',
 		'period'                => 'gewenste bestelperiode',
 		'amount'                => 'gewenste hoeveelheid',
-		'audience'              => 'doelgroep',
+		'audience'              => 'voor wie',
 		'service'               => 'onderwerp',
 		'start'                 => 'gewenste startdatum',
 		'place'                 => 'postcode en plaats',

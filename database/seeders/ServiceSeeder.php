@@ -39,7 +39,7 @@ final class ServiceSeeder extends Seeder {
         'long_title'     => 'Van A tot Z geregeld',
         'summary'        => 'Advies, planvorming, installatie, levering en service. Vijf stappen, één partij, één aanspreekpunt.',
         'block_title'    => 'Voor wie we het doen',
-        'block_subtitle' => 'Gerelateerde doelgroepen',
+        'block_subtitle' => 'Gas voor elke situatie',
         'block_content'  => '<p>Je hoeft niet bij stap 1 te beginnen. Heb je al een tank staan? Dan pakken we het op vanaf levering en service.</p>',
     ];
 
