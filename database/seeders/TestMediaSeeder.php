@@ -85,6 +85,11 @@ final class TestMediaSeeder extends Seeder {
             $this->zetHeader($vacancy);
         }
 
+        // Over ons: de foto-header en de beeldband onder de tijdlijn.
+        $overOns = $this->pagina(TaxonomyMap::ABOUT);
+        $this->zetHeader($overOns);
+        $this->maakMedia($overOns, 'Werkplaats en team');
+
         // Doelgroepenoverzicht: de beeldband onder de kaarten.
         $this->maakMedia($this->pagina(TaxonomyMap::AUDIENCES), 'Beeldband doelgroepen');
 

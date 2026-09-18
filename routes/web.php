@@ -2,6 +2,7 @@
 
 use App\Application\RequestHandlers\Audience\ListAudiences;
 use App\Application\RequestHandlers\Audience\ShowAudience;
+use App\Application\RequestHandlers\About\ShowAbout;
 use App\Application\RequestHandlers\Default\ShowDefault;
 use App\Application\RequestHandlers\Form\ShowFormPage;
 use App\Application\RequestHandlers\Home\ShowHome;
@@ -35,6 +36,7 @@ if($taxonomy !== null) {
         TaxonomyMap::KNOWLEDGE->value   => $router->get($taxonomy->url, ListArticles::class),
         TaxonomyMap::FAQ->value         => $router->get($taxonomy->url, ShowFaq::class),
         TaxonomyMap::CAREERS->value     => $router->get($taxonomy->url, ListVacancies::class),
+        TaxonomyMap::ABOUT->value       => $router->get($taxonomy->url, ShowAbout::class),
         TaxonomyMap::CONTACT->value,
         TaxonomyMap::ORDER->value,
         TaxonomyMap::QUOTE->value,

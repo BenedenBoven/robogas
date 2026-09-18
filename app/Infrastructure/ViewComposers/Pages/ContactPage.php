@@ -14,7 +14,8 @@ use App\Support\TaxonomyMap;
     'knowledge.list',
     'knowledge.show',
     'knowledge.faq',
-    'vacancies.list'
+    'vacancies.list',
+    'about.show'
 )]
 #[ComposerDescription('De contactpagina, als bestemming voor contactknoppen.', 'contactPage')]
 final readonly class ContactPage extends AbstractPageComposer {

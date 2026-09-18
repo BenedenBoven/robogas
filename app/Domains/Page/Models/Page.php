@@ -50,11 +50,13 @@ final class Page extends AtomPage {
             // Voor wie: "Staat jouw situatie er niet bij?" onder de kaarten.
             // Onze kennis: "Staat je vraag er niet bij?" onder de artikelen.
             // Vacatures: "Sollicitatie sturen?" onder de lijst.
+            // Over ons: kop en kicker boven de tijdlijn.
             // Formulierpagina's: titel, intro en regel boven de knop van het formulierpaneel.
             TaxonomyMap::SERVICES->value,
             TaxonomyMap::AUDIENCES->value,
             TaxonomyMap::KNOWLEDGE->value,
             TaxonomyMap::CAREERS->value,
+            TaxonomyMap::ABOUT->value,
             TaxonomyMap::CONTACT->value,
             TaxonomyMap::ORDER->value,
             TaxonomyMap::QUOTE->value,
@@ -72,6 +74,7 @@ final class Page extends AtomPage {
             TaxonomyMap::ORDER->value,
             TaxonomyMap::QUOTE->value,
             TaxonomyMap::MALFUNCTION->value => [StepList::STEPS],
+            TaxonomyMap::ABOUT->value       => [StepList::FACTS, StepList::MILESTONES],
             default                         => [],
         };
     }

@@ -11,7 +11,8 @@ use App\Support\TaxonomyMap;
     'services.show',
     'audiences.show',
     'contact.show',
-    'knowledge.show'
+    'knowledge.show',
+    'about.show'
 )]
 #[ComposerDescription('De offertepagina, als bestemming voor de offerte-CTA.', 'quotePage')]
 final readonly class QuotePage extends AbstractPageComposer {
