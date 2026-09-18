@@ -50,7 +50,8 @@
             'class'  => 'absolute inset-0 w-full h-full object-cover',
             'eager'  => true,
         ])
-        <div class="absolute inset-0 bg-linear-to-r from-black/45 to-black/0 to-55%"></div>
+        {{-- Sterk genoeg voor een lichte foto: witte tekst moet ook op een zonnige gevel leesbaar blijven. --}}
+        <div class="absolute inset-0 bg-linear-to-r from-black/70 via-black/40 via-40% to-black/0 to-70%"></div>
         <div class="mx-auto max-w-7xl">
             <div class="relative z-10 h-160 pt-27 flex flex-col justify-center gap-4">
                 @include('components.page-hero-head')
