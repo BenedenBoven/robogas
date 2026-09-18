@@ -8,6 +8,7 @@ use App\Support\TaxonomyMap;
 
 #[ComposesViews(
     'services.list',
+    'services.show',
     'audiences.list',
     'form-pages.show'
 )]

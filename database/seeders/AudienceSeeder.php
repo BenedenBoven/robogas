@@ -44,6 +44,10 @@ final class AudienceSeeder extends Seeder {
             "Keetverwarming\nBouwdrogers en heaters\nHeftrucks"],
     ];
 
+    /** Dummytekst voor de leeskolom "Wat wij doen voor ..." op de detailpagina. */
+    private const BODY = '<p>Hier komt het verhaal van deze doelgroep: waar we ze mee helpen, hoe we de installatie inrichten en wat ze merken van onze service. Deze tekst is een plaatshouder en wordt vervangen door de tekst van RoboGas.</p>'
+        . '<p>Weet je niet zeker welke tankinhoud je nodig hebt? We komen langs, meten je situatie op en rekenen je verbruik door. Daarna krijg je één prijs, waarin tankhuur, plaatsing, keuring en levering zitten.</p>';
+
     private const PAGE = [
         'long_title'     => 'Voor wie we werken',
         'summary'        => 'Een woonboerderij, een chaletpark, een stal of een bouwkeet: het gas is hetzelfde, de aanpak niet.',
@@ -64,6 +68,7 @@ final class AudienceSeeder extends Seeder {
                 'summary'    => $summary,
                 'benefits'   => $benefits,
                 'uses'       => $uses,
+                'body'       => self::BODY,
                 'priority'   => $priority,
                 'published'  => 1,
             ];
@@ -96,6 +101,6 @@ final class AudienceSeeder extends Seeder {
         $page->save();
 
         $this->command?->warn('Let op: alle teksten zijn plaatshouders uit het ontwerp en moeten door RoboGas worden gecontroleerd.');
-        $this->command?->warn('Ballonvaart en heftrucks hebben dummytekst, de body is overal leeg en er zijn geen diensten gekoppeld.');
+        $this->command?->warn('Ballonvaart en heftrucks hebben dummytekst, de tekst van alle doelgroepen is dummytekst en er zijn geen diensten gekoppeld.');
     }
 }

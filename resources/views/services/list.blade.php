@@ -22,7 +22,7 @@
 @endsection
 
 @section('content')
-    @include('components.step-path')
+    @include('components.service-cards')
 
     @if($page->block_title || $page->block_content)
         <section class="py-24 2xl:py-32 bg-blue-light-200">
@@ -41,7 +41,7 @@
                     @endif
                 </div>
                 @if($audiences->isNotEmpty())
-                    <div class="flex flex-wrap justify-between gap-8">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-10">
                         @foreach($audiences as $blockAudience)
                             @include('components.audience-icon', ['iconAudience' => $blockAudience, 'iconGround' => 'white'])
                         @endforeach
@@ -51,20 +51,4 @@
         </section>
     @endif
 
-    @if($quotePage || $contactPage)
-        <section class="py-24 2xl:py-32">
-            <div class="max-w-6xl mx-auto relative z-10">
-                @include('components.cta-block', [
-                    'ctaTone'    => 'dark',
-                    'ctaAlign'   => 'center',
-                    'ctaTitle'   => 'Zullen we het doorrekenen?',
-                    'ctaEyebrow' => 'Binnen twee werkdagen een prijs op maat',
-                    'ctaActions' => array_values(array_filter([
-                        $quotePage ? ['label' => 'Offerte aanvragen', 'url' => $quotePage->url] : null,
-                        $contactPage ? ['label' => 'Contact opnemen', 'url' => $contactPage->url, 'variant' => 'trans'] : null,
-                    ])),
-                ])
-            </div>
-        </section>
-    @endif
 @endsection

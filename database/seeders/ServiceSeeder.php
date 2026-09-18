@@ -21,6 +21,11 @@ final class ServiceSeeder extends Seeder {
 
     private const WE_NEED = "Je adres en het type gebouw of bedrijf\nEen indicatie van je jaarverbruik, of wat je nu stookt\nRuimte voor de wagen om bij de opstelplaats te komen";
 
+    /** Dummytekst, zodat de leeskolom op de detailpagina te beoordelen is. */
+    private const BODY = '<p>Hier komt de uitleg van deze stap: wat er gebeurt, wie je aan de lijn krijgt en hoe lang het duurt. Deze tekst is een plaatshouder en wordt vervangen door de tekst van RoboGas.</p>'
+        . '<p>Twee of drie korte alinea\'s werken het best. Begin met wat de klant eraan heeft, en eindig met wat er daarna gebeurt.</p>'
+        . '<h4>Goed om te weten</h4><p>Klopt er iets niet of verandert je situatie? Bel ons. We schuiven liever op dan dat we iets plaatsen wat niet past.</p>';
+
     private const SERVICES = [
         ['Advies', 'advies', 'We rekenen je verbruik door en bepalen welke tank of fles bij je past.', "Verbruik doorrekenen\nLocatie en bereikbaarheid beoordelen\nHeldere offerte, geen verrassingen"],
         ['Planvorming', 'planvorming', 'Tekening, vergunning en veiligheidsafstanden regelen we vooraf.', "Situatietekening\nVeiligheidsafstanden toetsen\nAfstemming met gemeente of installateur"],
@@ -43,7 +48,11 @@ final class ServiceSeeder extends Seeder {
             $service = Service::query()->firstOrNew(['title' => $title]);
 
             if($service->exists) {
-                $this->command?->line('Bestaat al: ' . $title);
+                // Alleen de dummytekst aanvullen als die nog leeg is.
+                if(empty($service->getAttributes()['body'] ?? null)) {
+                    $service->forceFill(['body' => self::BODY])->save();
+                    $this->command?->line('Tekst aangevuld: ' . $title);
+                }
                 continue;
             }
 
@@ -53,6 +62,7 @@ final class ServiceSeeder extends Seeder {
                 'summary'   => $summary,
                 'we_do'     => $weDo,
                 'we_need'   => self::WE_NEED,
+                'body'      => self::BODY,
                 'priority'  => $priority,
                 'published' => 1,
             ])->save();
@@ -73,6 +83,6 @@ final class ServiceSeeder extends Seeder {
         $page->save();
 
         $this->command?->warn('Let op: alle teksten zijn plaatshouders uit het ontwerp en moeten door RoboGas worden gecontroleerd.');
-        $this->command?->warn('De body van de diensten is leeg gelaten; die tekst moet van RoboGas komen.');
+        $this->command?->warn('De tekst van de diensten is dummytekst; die moet van RoboGas komen.');
     }
 }

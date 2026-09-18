@@ -5,7 +5,7 @@
     @var Service|null $nextStep      @uses geërfde scope van de view
 --}}
 @if($previousStep || $nextStep)
-    <nav aria-label="Stappen" class="py-24 2xl:py-32 bg-white">
+    <nav aria-label="Stappen" class="pt-8 pb-24 2xl:pb-32 bg-white">
         <div class="max-w-6xl mx-auto relative z-10 grid md:grid-cols-2 gap-6 md:gap-12">
             @foreach(['prev' => $previousStep, 'next' => $nextStep] as $stepDirection => $stepLink)
                 @if($stepLink)
