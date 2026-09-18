@@ -24,6 +24,15 @@ interface ArticleRepositoryInterface {
     public function getRelated(Article $article, int $limit = 3): Collection;
 
     /**
+     * Artikelen voor een pagina over één onderwerp: eerst die uit het thema met
+     * deze titel, aangevuld met de eerste andere. Bestaat het thema niet (meer),
+     * dan gewoon de eerste artikelen.
+     *
+     * @return Collection<int, Article>
+     */
+    public function getForTheme(string $themeTitle, int $limit = 3): Collection;
+
+    /**
      * De eerste artikelen uit het beheer, voor een blok op een andere pagina.
      *
      * @return Collection<int, Article>

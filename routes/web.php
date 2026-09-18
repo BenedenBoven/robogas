@@ -3,6 +3,7 @@
 use App\Application\RequestHandlers\Audience\ListAudiences;
 use App\Application\RequestHandlers\Audience\ShowAudience;
 use App\Application\RequestHandlers\About\ShowAbout;
+use App\Application\RequestHandlers\Biogas\ShowBiogas;
 use App\Application\RequestHandlers\Default\ShowDefault;
 use App\Application\RequestHandlers\Form\ShowFormPage;
 use App\Application\RequestHandlers\Home\ShowHome;
@@ -37,6 +38,7 @@ if($taxonomy !== null) {
         TaxonomyMap::FAQ->value         => $router->get($taxonomy->url, ShowFaq::class),
         TaxonomyMap::CAREERS->value     => $router->get($taxonomy->url, ListVacancies::class),
         TaxonomyMap::ABOUT->value       => $router->get($taxonomy->url, ShowAbout::class),
+        TaxonomyMap::BIOGAS->value      => $router->get($taxonomy->url, ShowBiogas::class),
         TaxonomyMap::CONTACT->value,
         TaxonomyMap::ORDER->value,
         TaxonomyMap::QUOTE->value,

@@ -51,12 +51,14 @@ final class Page extends AtomPage {
             // Onze kennis: "Staat je vraag er niet bij?" onder de artikelen.
             // Vacatures: "Sollicitatie sturen?" onder de lijst.
             // Over ons: kop en kicker boven de tijdlijn.
+            // Biogas: het gele "Kan het al in jouw situatie?" onder de tekst.
             // Formulierpagina's: titel, intro en regel boven de knop van het formulierpaneel.
             TaxonomyMap::SERVICES->value,
             TaxonomyMap::AUDIENCES->value,
             TaxonomyMap::KNOWLEDGE->value,
             TaxonomyMap::CAREERS->value,
             TaxonomyMap::ABOUT->value,
+            TaxonomyMap::BIOGAS->value,
             TaxonomyMap::CONTACT->value,
             TaxonomyMap::ORDER->value,
             TaxonomyMap::QUOTE->value,

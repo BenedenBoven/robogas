@@ -54,7 +54,10 @@ final class AboutSeeder extends Seeder {
         $page = Page::query()->findOrFail(Page::query()->joined()->where('atom_taxonomies.id', TaxonomyMap::ABOUT->value)->value('atom_pages.id'));
 
         foreach(self::PAGE as $column => $value) {
-            if(empty($page->getAttributes()[$column] ?? null)) {
+            $current = $page->getAttributes()[$column] ?? null;
+
+            // Bij opslaan in het beheer wordt een lege lange titel de titel; dan telt hij als leeg.
+            if(empty($current) || ($column === 'long_title' && $current === $page->title)) {
                 $page->{$column} = $value;
             }
         }

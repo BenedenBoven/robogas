@@ -39,7 +39,7 @@ final class TestMediaSeeder extends Seeder {
     ];
 
     /** Vaste pagina's met een headerbeeld in het ontwerp. */
-    private const PAGINAS_MET_HEADER = [TaxonomyMap::SERVICES, TaxonomyMap::AUDIENCES, TaxonomyMap::CONTACT];
+    private const PAGINAS_MET_HEADER = [TaxonomyMap::SERVICES, TaxonomyMap::AUDIENCES, TaxonomyMap::CONTACT, TaxonomyMap::BIOGAS];
 
     public function run(): void {
         $this->ruimOp();

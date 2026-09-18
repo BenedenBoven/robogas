@@ -28,6 +28,14 @@ final readonly class ArticleRepository implements ArticleRepositoryInterface {
             ->values();
     }
 
+    public function getForTheme(string $themeTitle, int $limit = 3): Collection {
+        return $this->getBaseQuery()
+            ->get()
+            ->sortBy(fn(Article $article) => $article->theme?->title === $themeTitle ? 0 : 1)
+            ->take($limit)
+            ->values();
+    }
+
     public function getFirst(int $limit): Collection {
         return $this->getBaseQuery()->limit($limit)->get();
     }

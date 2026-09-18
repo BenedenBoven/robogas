@@ -234,28 +234,38 @@
             @apply !mb-4 text-lg font-extrabold;
         }
 
+        /* Uit het ontwerp: CompareTable. Gele kopregel, dunne lijnen, afgeronde
+           rand. De editor maakt vaak geen thead; dan geldt de eerste rij als kop. */
         table {
-            @apply mb-8 w-full;
+            @apply mb-8 w-full bg-white rounded-3xl overflow-hidden border border-blue-light-300;
+            border-collapse: separate;
+            border-spacing: 0;
 
             p {
                 @apply mb-0;
             }
 
-            tr {
-                &:nth-child(even) {
-                    @apply bg-white;
-                }
+            th,
+            td {
+                @apply px-3 py-3 sm:px-6 sm:py-5 text-left align-top text-black border-b border-blue-light-300;
+            }
 
-                &:nth-child(odd) {
-                    @apply bg-grey;
-                }
+            td:first-child {
+                @apply font-medium;
+            }
 
-                &:first-child {
-                    @apply bg-yellow font-bold font-heading;
-                }
+            tr:last-child > td {
+                @apply border-b-0;
+            }
 
+            thead tr,
+            tbody:first-child > tr:first-child,
+            & > tr:first-child {
+                @apply bg-yellow;
+
+                th,
                 td {
-                    @apply p-2;
+                    @apply font-heading font-extrabold border-b-0;
                 }
             }
         }
