@@ -29,7 +29,12 @@ const verstuur = (form, gRecaptchaResponse) => {
     melding.classList.add('hidden');
     melding.classList.remove('alert-danger');
 
-    form.querySelectorAll('.invalid-feedback').forEach((element) => element.classList.add('hidden'));
+    // Ook de inline display weghalen die toonFouten zet, anders wint die van
+    // hidden en blijven oude fouten staan na een nieuwe poging.
+    form.querySelectorAll('.invalid-feedback').forEach((element) => {
+        element.classList.add('hidden');
+        element.style.display = '';
+    });
     form.querySelectorAll('.is-invalid').forEach((element) => element.classList.remove('is-invalid'));
 
     axios.post(form.action, formData).then((response) => {
