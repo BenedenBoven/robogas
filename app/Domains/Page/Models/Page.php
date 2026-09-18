@@ -48,10 +48,12 @@ final class Page extends AtomPage {
             // Diensten: "Voor wie we het doen" onder het stappenpad.
             // Voor wie: "Staat jouw situatie er niet bij?" onder de kaarten.
             // Onze kennis: "Staat je vraag er niet bij?" onder de artikelen.
+            // Vacatures: "Sollicitatie sturen?" onder de lijst.
             // Formulierpagina's: titel, intro en regel boven de knop van het formulierpaneel.
             TaxonomyMap::SERVICES->value,
             TaxonomyMap::AUDIENCES->value,
             TaxonomyMap::KNOWLEDGE->value,
+            TaxonomyMap::CAREERS->value,
             TaxonomyMap::CONTACT->value,
             TaxonomyMap::ORDER->value,
             TaxonomyMap::QUOTE->value,

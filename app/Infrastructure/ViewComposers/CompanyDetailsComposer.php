@@ -12,7 +12,9 @@ use Illuminate\View\View;
     'components.footer',
     'contact.show',
     'form-pages.show',
-    'knowledge.faq'
+    'knowledge.faq',
+    'vacancies.list',
+    'vacancies.show'
 )]
 #[ComposerDescription('De bedrijfsgegevens uit de instellingen, met config/company.php als terugval.', 'company')]
 final readonly class CompanyDetailsComposer extends AbstractMemoizedComposer {

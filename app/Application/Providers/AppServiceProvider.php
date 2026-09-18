@@ -12,6 +12,8 @@ use App\Domains\Page\Contracts\PageRepositoryInterface;
 use App\Domains\Page\Repositories\PageRepository;
 use App\Domains\Service\Contracts\ServiceRepositoryInterface;
 use App\Domains\Service\Repositories\ServiceRepository;
+use App\Domains\Vacancy\Contracts\VacancyRepositoryInterface;
+use App\Domains\Vacancy\Repositories\VacancyRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Mail\Mailer;
 use Illuminate\Support\Facades\Schema;
@@ -25,6 +27,7 @@ class AppServiceProvider extends ServiceProvider {
         FaqThemeRepositoryInterface::class => FaqThemeRepository::class,
         PageRepositoryInterface::class     => PageRepository::class,
         ServiceRepositoryInterface::class  => ServiceRepository::class,
+        VacancyRepositoryInterface::class  => VacancyRepository::class,
     ];
 
 

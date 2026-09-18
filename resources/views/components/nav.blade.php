@@ -7,6 +7,7 @@
     @var list<array{label: string, url: string}>                 $arrangeLinks     @uses MainNavigationComposer
     @var Page|null                                               $orderPage        @uses MainNavigationComposer
     @var string|null                                             $portalUrl        @uses MainNavigationComposer
+    @var array<int, int>                                         $navCounts        teller per taxonomy-id  @uses MainNavigationComposer
     @var Taxonomy|null                                           $taxonomy         @uses geërfde scope van de view
 --}}
 @php
@@ -92,7 +93,7 @@
                             'inline-flex items-center hover:text-blue group font-heading font-extrabold',
                             'text-blue' => in_array($navItem->id, $navActiveIds, true),
                             'text-black' => !in_array($navItem->id, $navActiveIds, true),
-                        ])>{{ $navItem->title }}</a>
+                        ])>{{ $navItem->title }}@if(!empty($navCounts[$navItem->id]))<span class="bg-yellow rounded-full size-6 flex justify-center items-center ml-2 group-hover:rotate-360 transition-all duration-500"><span class="block text-sm font-bold text-black">{{ $navCounts[$navItem->id] }}</span></span>@endif</a>
                     @endif
                 @endforeach
             </div>
@@ -151,7 +152,7 @@
                             'inline-flex items-center font-heading font-extrabold text-xl hover:text-blue',
                             'text-blue' => in_array($navItem->id, $navActiveIds, true),
                             'text-black' => !in_array($navItem->id, $navActiveIds, true),
-                        ])>{{ $navItem->title }}</a>
+                        ])>{{ $navItem->title }}@if(!empty($navCounts[$navItem->id]))<span class="bg-yellow rounded-full size-6 flex justify-center items-center ml-2"><span class="block text-sm font-bold text-black">{{ $navCounts[$navItem->id] }}</span></span>@endif</a>
                         @if($navMega && $navMega['links'])
                             <div class="flex flex-wrap gap-3">
                                 @foreach($navMega['links'] as $navMegaLink)

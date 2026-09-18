@@ -5,6 +5,7 @@ namespace App\Infrastructure\ViewComposers\Navigation;
 use App\Domains\Audience\Contracts\AudienceRepositoryInterface;
 use App\Domains\Page\Contracts\PageRepositoryInterface;
 use App\Domains\Service\Contracts\ServiceRepositoryInterface;
+use App\Domains\Vacancy\Contracts\VacancyRepositoryInterface;
 use App\Infrastructure\Attributes\ComposerDescription;
 use App\Infrastructure\Attributes\ComposesViews;
 use App\Infrastructure\ViewComposers\AbstractMemoizedComposer;
@@ -24,7 +25,7 @@ use Illuminate\View\View;
 #[ComposesViews(
     'components.nav'
 )]
-#[ComposerDescription('Het hoofdmenu, de mega-menu\'s per item, de acties onder "Direct regelen", de bestelpagina en het portaal.', 'navigationItems', 'megaMenus', 'arrangeLinks', 'orderPage', 'portalUrl')]
+#[ComposerDescription('Het hoofdmenu, de mega-menu\'s per item, de acties onder "Direct regelen", de bestelpagina en het portaal.', 'navigationItems', 'megaMenus', 'arrangeLinks', 'orderPage', 'portalUrl', 'navCounts')]
 final readonly class MainNavigationComposer extends AbstractMemoizedComposer {
 
     private const ARRANGE = [TaxonomyMap::QUOTE, TaxonomyMap::ORDER, TaxonomyMap::MALFUNCTION];
@@ -35,7 +36,8 @@ final readonly class MainNavigationComposer extends AbstractMemoizedComposer {
         private PageRepositoryInterface     $pageRepository,
         private ServiceRepositoryInterface  $serviceRepository,
         private AudienceRepositoryInterface $audienceRepository,
-        private CompanyDetails              $companyDetails
+        private CompanyDetails              $companyDetails,
+        private VacancyRepositoryInterface  $vacancyRepository
     ) {
         parent::__construct($cacheManager);
     }
@@ -65,6 +67,8 @@ final readonly class MainNavigationComposer extends AbstractMemoizedComposer {
             ))),
             'orderPage'       => $pages->get(TaxonomyMap::ORDER->value),
             // Zolang het adres van het portaal onbekend is, gaat het tabje naar contact.
+            // Teller achter een menu-item, per taxonomy-id. Nul toont geen teller.
+            'navCounts'       => [TaxonomyMap::CAREERS->value => $this->memoize('vacancy_count', fn() => $this->vacancyRepository->count())],
             'portalUrl'       => $this->companyDetails->portalUrl() ?? $pages->get(TaxonomyMap::CONTACT->value)?->url,
         ]);
     }

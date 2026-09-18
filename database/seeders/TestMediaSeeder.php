@@ -6,6 +6,7 @@ use App\Domains\Article\Models\Article;
 use App\Domains\Audience\Models\Audience;
 use App\Domains\Page\Models\Page;
 use App\Domains\Service\Models\Service;
+use App\Domains\Vacancy\Models\Vacancy;
 use App\Support\TaxonomyMap;
 use BenedenBoven\Atom\Modules\Media\Models\Media;
 use Illuminate\Database\Eloquent\Model;
@@ -74,6 +75,16 @@ final class TestMediaSeeder extends Seeder {
             $this->zetHeader($this->pagina($map));
         }
 
+        // Vacatures: twee foto's onder de lijst, en een beeldband per vacature.
+        $vacatures = $this->pagina(TaxonomyMap::CAREERS);
+        $this->maakMedia($vacatures, 'Werkplaats 1');
+        $this->maakMedia($vacatures, 'Werkplaats 2');
+        $this->zetHeader($vacatures);
+
+        foreach(Vacancy::query()->get() as $vacancy) {
+            $this->zetHeader($vacancy);
+        }
+
         // Doelgroepenoverzicht: de beeldband onder de kaarten.
         $this->maakMedia($this->pagina(TaxonomyMap::AUDIENCES), 'Beeldband doelgroepen');
 
@@ -86,7 +97,7 @@ final class TestMediaSeeder extends Seeder {
         $ids = Media::query()->where('file', 'like', '%/' . self::VOORVOEGSEL . '%')->pluck('id')->all();
 
         if($ids !== []) {
-            foreach([Page::class, Service::class, Audience::class, Article::class] as $klasse) {
+            foreach([Page::class, Service::class, Audience::class, Article::class, Vacancy::class] as $klasse) {
                 $klasse::query()->whereIn('header_id', $ids)->update(['header_id' => null]);
             }
 
