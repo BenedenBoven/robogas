@@ -2,12 +2,15 @@
 
 namespace App\Atom\Steps\SaveHandlers;
 
+use App\Atom\Steps\StepList;
 use App\Domains\Step\Models\Step;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 /**
- * Slaat de stappen op bij het bewaren van een pagina.
+ * Slaat de lijsten (stappen, kerncijfers, mijlpalen) op bij het bewaren van een
+ * pagina. Elke lijst staat in de request onder zijn eigen sleutel; zie StepList.
  *
  * Hangt als 'after'-handler aan het model, zodat de stappen meegaan met de
  * gewone opslagknop van Atom. Een los opslagmoment zou betekenen dat iemand het
@@ -24,11 +27,17 @@ final readonly class SaveSteps {
     ) {}
 
     public function save(Model $model, mixed $field = null): void {
-        if(!$this->request->has('steps')) {
-            return;
+        foreach($model->stepLists() as $list) {
+            // Een lijst die niet in de request staat, is niet meegestuurd (een
+            // ander formulier, een API-aanroep) en niet leeggemaakt.
+            if($this->request->has($list->value)) {
+                $this->saveList($model, $list, (array)$this->request->input($list->value, []));
+            }
         }
+    }
 
-        $rows = (array)$this->request->input('steps', []);
+    /** @param array<int|string, array<string, mixed>> $rows */
+    private function saveList(Model $model, StepList $list, array $rows): void {
         $kept = [];
         $prio = 0;
 
@@ -41,40 +50,37 @@ final readonly class SaveSteps {
                 continue;
             }
 
+            $label   = trim((string)($row['label'] ?? ''));
             $summary = trim((string)($row['summary'] ?? ''));
             $id      = (int)($row['id'] ?? 0);
 
-            // Bestaande regel bijwerken op id, zodat het hernoemen van een stap
-            // geen nieuwe rij oplevert.
-            $step = $id > 0
-                ? Step::query()->where('model_type', $model->getMorphClass())->where('model_id', $model->getKey())->find($id)
-                : null;
+            // Bestaande regel bijwerken op id, zodat het hernoemen van een regel
+            // geen nieuwe rij oplevert. Alleen binnen dezelfde lijst.
+            $step = $id > 0 ? $this->query($model, $list)->find($id) : null;
 
-            $step ??= new Step(['model_type' => $model->getMorphClass(), 'model_id' => $model->getKey()]);
+            $step ??= new Step(['model_type' => $model->getMorphClass(), 'model_id' => $model->getKey(), 'list' => $list->value]);
 
             $step->fill([
+                'label'   => $list->labelPlaceholder() !== null && $label !== '' ? $label : null,
                 'title'   => $title,
-                'summary' => $summary !== '' ? $summary : null,
+                'summary' => $list->summaryPlaceholder() !== null && $summary !== '' ? $summary : null,
                 'prio'    => $prio++,
             ])->save();
 
             $kept[] = $step->getKey();
         }
 
-        $this->removeMissing($model, $kept);
-    }
-
-    /**
-     * Stappen die niet meer in het formulier stonden zijn verwijderd door de
-     * redactie en horen ook uit de database te verdwijnen.
-     *
-     * @param array<int, int> $kept
-     */
-    private function removeMissing(Model $model, array $kept): void {
-        Step::query()
-            ->where('model_type', $model->getMorphClass())
-            ->where('model_id', $model->getKey())
+        // Regels die niet meer in het formulier stonden, heeft de redactie
+        // verwijderd; die horen ook uit de database te verdwijnen.
+        $this->query($model, $list)
             ->when($kept !== [], fn($query) => $query->whereNotIn('id', $kept))
             ->delete();
+    }
+
+    private function query(Model $model, StepList $list): Builder {
+        return Step::query()
+            ->where('model_type', $model->getMorphClass())
+            ->where('model_id', $model->getKey())
+            ->where('list', $list->value);
     }
 }

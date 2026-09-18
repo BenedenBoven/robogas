@@ -6,10 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
- * Eén stap uit een genummerde lijst. Hangt polymorf aan het model waar de lijst
- * bij hoort; zie HasSteps.
+ * Eén regel uit een lijst op een pagina: een stap, een kerncijfer of een
+ * mijlpaal (zie StepList). Hangt polymorf aan het model waar de lijst bij
+ * hoort; zie HasSteps.
  *
  * @property integer     $id
+ * @property string      $list     zie StepList
+ * @property string|null $label    getal of jaartal vóór de titel
  * @property string      $title
  * @property string|null $summary
  * @property integer     $prio
@@ -17,7 +20,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 final class Step extends Model {
 
     protected $table = 'rg_steps';
-    protected $fillable = ['model_type', 'model_id', 'title', 'summary', 'prio'];
+    protected $fillable = ['model_type', 'model_id', 'list', 'label', 'title', 'summary', 'prio'];
 
     public function model(): MorphTo {
         return $this->morphTo();
