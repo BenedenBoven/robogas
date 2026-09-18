@@ -14,8 +14,9 @@
     <span @class(['font-heading font-bold uppercase', 'text-yellow' => $heroDark, 'text-blue' => !$heroDark])>{{ $heroEyebrow }}</span>
 @endif
 
+{{-- Lange Nederlandse woorden ("propaaninstallaties") passen op een telefoon niet op één regel: afbreken, en anders knippen. --}}
 <h1 @class([
-    'font-heading font-bold leading-[1.05] text-pretty',
+    'font-heading font-bold leading-[1.05] text-pretty hyphens-auto break-words',
     'text-5xl md:text-6xl max-w-[24ch]' => $heroVariant === 'band',
     'text-5xl md:text-7xl max-w-[16ch]' => $heroVariant === 'split',
     'text-5xl md:text-7xl max-w-[18ch]' => $heroVariant === 'photo',
