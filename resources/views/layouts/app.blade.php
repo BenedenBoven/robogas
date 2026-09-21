@@ -11,11 +11,13 @@
     @vite(['resources/css/app.css'])
     {!! $atomFrontEndService->getStyles() !!}
     <!-- FAVICON -->
-    <link rel="icon" href="/favicon/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/favicon/site.webmanifest">
+    <meta name="color-scheme" content="light dark">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ Vite::asset('resources/img/favicon/light_favicon-32x32.png') }}?v=2" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ Vite::asset('resources/img/favicon/dark_favicon-32x32.png') }}?v=2" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/svg+xml" href="{{ Vite::asset('resources/img/favicon/favicon-adaptive.svg') }}?v=2">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ Vite::asset('resources/img/favicon/light_favicon-32x32.png') }}?v=2">
+    <link rel="manifest" href="{{ Vite::asset('resources/img/favicon/site.webmanifest') }}?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ Vite::asset('resources/img/favicon/light_apple-touch-icon.png') }}?v=2">
     <!-- SOCIAL TAGS -->
     <meta property="og:title" content="{{ $taxonomy?->meta_title ?? 'META TITEL FIXEN' }}">
     <meta property="og:description"

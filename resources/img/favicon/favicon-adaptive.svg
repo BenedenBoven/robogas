@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Laag_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 301.7 301.7">
+    <!-- Generator: Adobe Illustrator 30.9.0, SVG Export Plug-In . SVG Version: 2.1.4 Build 84)  -->
+    <defs>
+        <style>
+            .light-mode { fill: #7e9dc2; }
+            .dark-mode { fill: #ffffff; }
+
+            @media (prefers-color-scheme: dark) {
+            .light-mode { display: none; }
+            }
+
+            @media (prefers-color-scheme: light) {
+            .dark-mode { display: none; }
+            }
+        </style>
+    </defs>
+    <!-- Light mode design -->
+    <g class="light-mode">
+        <path class="light-mode" d="M150.2,0l-59.5,59.5c-32.2,32.2-32.2,84.3,0,116.5l59.5-59.5c32.2-32.2,32.2-84.3,0-116.5"/>
+        <path class="light-mode" d="M122.1,301.7l88.9-88.9c32.2-32.2,32.2-84.3,0-116.5l-88.9,88.9c-32.2,32.2-32.2,84.3,0,116.5"/>
+    </g>
+
+    <!-- Dark mode design -->
+    <g class="dark-mode">
+        <path class="dark-mode" d="M150.2,0l-59.5,59.5c-32.2,32.2-32.2,84.3,0,116.5l59.5-59.5c32.2-32.2,32.2-84.3,0-116.5"/>
+        <path class="dark-mode" d="M122.1,301.7l88.9-88.9c32.2-32.2,32.2-84.3,0-116.5l-88.9,88.9c-32.2,32.2-32.2,84.3,0,116.5"/>
+    </g>
+</svg>
