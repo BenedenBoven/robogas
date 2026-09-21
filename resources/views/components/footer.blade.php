@@ -11,7 +11,7 @@
         <div class="bg-black w-full sm:w-[calc(100%-64px)] h-full absolute left-0 bottom-0 z-1 sm:mx-8 rounded-t-4xl"></div>
         <div class="max-w-6xl mx-auto relative z-10 flex flex-wrap min-[88rem]:flex-nowrap gap-12 2xl:gap-24">
             <div class="flex flex-col w-full lg:w-auto gap-2 grow">
-                <span class="text-white font-heading text-5xl sm:text-6xl lg:text-7xl font-extrabold">Interesse?</span>
+                <span class="text-white font-heading leading-15 text-5xl sm:text-6xl lg:text-7xl font-extrabold">Interesse?</span>
                 <span class="font-bold font-heading uppercase text-yellow">Eén belletje en het loopt.</span>
                 @if($contactPage)
                     <a href="{{ $contactPage->url }}" class="btn btn-primary mt-6">Contact</a>
@@ -29,7 +29,7 @@
                     </div>
                 @endforeach
             </div>
-            <div class="flex flex-col gap-2 mt-auto w-auto lg:items-end">
+            <div class="flex flex-col gap-2 w-auto lg:items-end">
                 <a href="/" class="group" title="Ga naar home">
                     <svg class="h-8 w-auto" viewBox="0 0 287.6 51.7" role="img" aria-label="RoboGas">
                         <g>

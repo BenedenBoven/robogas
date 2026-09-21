@@ -14,7 +14,7 @@
             @include('components.knowledge-grid', ['gridArticles' => $homeArticles])
             @if($knowledgePage)
                 <div class="text-center mt-12">
-                    <a href="{{ $knowledgePage->url }}" class="btn btn-dark">Alle kennis</a>
+                    <a href="{{ $knowledgePage->url }}" class="btn btn-primary">Bekijk alle vragen</a>
                 </div>
             @endif
         </div>
