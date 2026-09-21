@@ -18,17 +18,16 @@
                         </span>
                     </div>
                 </div>
-                <div class="absolute bottom-0 left-0 z-10">
+                <div class="absolute -bottom-1 left-0 z-10">
                     <a href="#order" class="btn btn-primary btn-down shadow-none">
                         <i class="fa-regular fa-angle-down"></i>
                         Direct bestellen
                     </a>
-                    <div class="hidden 2xl:block bg-white h-10 w-full absolute -bottom-10 left-0"></div>
                 </div>
             </div>
         </div>
-        <div class="2xl:max-w-7xl mx-auto relative z-10">
-            <div class="h-34 rounded-t-4xl bg-white w-full"></div>
+        <div class="2xl:max-w-7xl mx-auto relative z-10 -bottom-1">
+            <div class="h-34 rounded-t-4xl 2xl:rounded-tl-none bg-white w-full"></div>
         </div>
     </header>
 @endsection
