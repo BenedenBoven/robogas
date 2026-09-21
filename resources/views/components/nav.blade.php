@@ -1,14 +1,15 @@
 {{--
-    Hoofdnavigatie: menu uit Atom, mega-menu onder Diensten en Doelgroepen, de knoppen
-    Gas bestellen en Mijn Robogas, en het mobiele menu. Het gedrag staat in resources/js/nav.js.
+    Hoofdnavigatie: menu uit Atom, de uitklap onder Gastanks, de knoppen Gas
+    bestellen en Mijn Robogas, de taalkeuze en het mobiele menu. Het gedrag
+    staat in resources/js/nav.js.
 
-    @var Collection<Taxonomy>                                    $navigationItems  @uses MainNavigationComposer
-    @var array<int, array{heading: string, links: list<array>}>  $megaMenus        per taxonomy-id  @uses MainNavigationComposer
-    @var list<array{label: string, url: string}>                 $arrangeLinks     @uses MainNavigationComposer
-    @var Page|null                                               $orderPage        @uses MainNavigationComposer
-    @var string|null                                             $portalUrl        @uses MainNavigationComposer
-    @var array<int, int>                                         $navCounts        teller per taxonomy-id  @uses MainNavigationComposer
-    @var Taxonomy|null                                           $taxonomy         @uses geërfde scope van de view
+    @var Collection<Taxonomy>                     $navigationItems  @uses MainNavigationComposer
+    @var array<int, array>                        $megaMenus        uitklap per taxonomy-id  @uses MainNavigationComposer
+    @var Page|null                                $orderPage        @uses MainNavigationComposer
+    @var string|null                              $portalUrl        @uses MainNavigationComposer
+    @var array<int, int>                          $navCounts        teller per taxonomy-id  @uses MainNavigationComposer
+    @var list<array{label: string, url: string}>  $languageLinks    @uses MainNavigationComposer
+    @var Taxonomy|null                            $taxonomy         @uses geërfde scope van de view
 --}}
 @php
     // Een menu-item is actief als de huidige pagina eronder valt.
@@ -51,51 +52,88 @@
                     @if($navMega)
                         <div class="group h-full">
                             <a href="{{ $navItem->url }}" @if($navItem->id === $navCurrentId) aria-current="page" @endif @class([
-                                'inline-flex items-center h-full services-dropdown-trigger font-heading font-extrabold',
+                                'inline-flex items-center h-full services-dropdown-trigger font-heading font-extrabold uppercase',
                                 'text-blue' => in_array($navItem->id, $navActiveIds, true),
                                 'text-black' => !in_array($navItem->id, $navActiveIds, true),
                             ])>
                                 <span class="group-hover:text-blue font-heading">{{ $navItem->title }}</span>
                             </a>
-                            <div class="invisible opacity-0 group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all fixed left-1/2 -translate-x-1/2 w-[100vw] bg-grey z-40 shadow-xl">
-                                <div class="w-1/3 h-full absolute top-0 right-0 bg-yellow z-1"></div>
-                                <div class="mx-auto max-w-7xl py-16 grid grid-cols-2 gap-32 relative z-20">
-                                    <div>
-                                        <span class="block text-black text-2xl lg:text-3xl 2xl:text-4xl font-heading font-black italic mb-8">{{ $navMega['heading'] }}</span>
-                                        <div class="flex flex-wrap gap-4">
+                            <div class="invisible opacity-0 group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all fixed left-1/2 -translate-x-1/2 w-[100vw] bg-white z-40 shadow-xl">
+                                <div class="mx-auto max-w-7xl grid grid-cols-[1fr_1.1fr_0.8fr] items-center gap-12">
+                                    {{-- Het beeld van de pagina Gastanks; zonder beeld blijft de kolom leeg. --}}
+                                    <div class="py-10">
+                                        @if(!empty($navMega['media']))
+                                            @include('components.media-img', [
+                                                'media'  => $navMega['media'],
+                                                'format' => 'md',
+                                                'class'  => 'w-full h-64 object-contain',
+                                            ])
+                                        @endif
+                                    </div>
+
+                                    <div class="py-16">
+                                        <span class="block font-heading text-3xl 2xl:text-4xl text-black">{{ $navMega['heading'] }}</span>
+                                        @if(!empty($navMega['eyebrow']))
+                                            <span class="block font-heading font-extrabold uppercase text-blue mt-1">{{ $navMega['eyebrow'] }}</span>
+                                        @endif
+
+                                        <div class="grid sm:grid-cols-2 gap-x-10 gap-y-8 mt-10">
                                             @foreach($navMega['links'] as $navMegaLink)
-                                                @if(!empty($navMega['badge']))
-                                                    <span class="relative inline-block group/badge">
-                                                        @include('components.hover-badge', ['badgeText' => $navMega['badge']])
-                                                        <a href="{{ $navMegaLink['url'] }}" class="btn btn-primary">{{ $navMegaLink['label'] }}</a>
-                                                    </span>
-                                                @else
-                                                    <a href="{{ $navMegaLink['url'] }}" class="btn btn-primary">{{ $navMegaLink['label'] }}</a>
-                                                @endif
+                                                <div>
+                                                    <a href="{{ $navMegaLink['url'] }}" class="group/link inline-flex items-center gap-2 font-heading font-extrabold text-black hover:text-blue transition-colors duration-300">
+                                                        <i class="fa-regular fa-angle-right text-blue transition-transform duration-300 group-hover/link:translate-x-1" aria-hidden="true"></i>
+                                                        {{ $navMegaLink['label'] }}
+                                                    </a>
+                                                    @if(!empty($navMegaLink['summary']))
+                                                        <p class="mt-1 text-sm text-grey-500">{{ $navMegaLink['summary'] }}</p>
+                                                    @endif
+                                                </div>
                                             @endforeach
                                         </div>
+
+                                        @if(!empty($navMega['allUrl']))
+                                            <a href="{{ $navMega['allUrl'] }}" class="group/all mt-8 inline-flex items-center gap-2 font-heading font-extrabold text-blue">
+                                                {{ $navMega['allLabel'] }}
+                                                <i class="fa-regular fa-angle-right transition-transform duration-300 group-hover/all:translate-x-1" aria-hidden="true"></i>
+                                            </a>
+                                        @endif
                                     </div>
-                                    @if($arrangeLinks)
-                                        <div>
-                                            <span class="block text-black text-2xl lg:text-3xl 2xl:text-4xl font-heading font-black italic mb-8">Direct regelen</span>
-                                            <div class="flex flex-wrap gap-4">
-                                                @foreach($arrangeLinks as $navArrangeLink)
-                                                    <a href="{{ $navArrangeLink['url'] }}" class="btn btn-secondary">{{ $navArrangeLink['label'] }}</a>
-                                                @endforeach
-                                            </div>
+
+                                    {{-- De lichtblauwe kolom loopt door tot de rand van het scherm. --}}
+                                    <div class="relative py-16 ps-10 before:absolute before:inset-y-0 before:left-0 before:w-[100vw] before:bg-blue-light-200 before:-z-1">
+                                        <div class="relative z-10 flex flex-col gap-3">
+                                            @foreach($navMega['highlight'] as $navHighlight)
+                                                <a href="{{ $navHighlight['url'] }}" class="group/hl inline-flex items-center gap-2 font-heading font-extrabold text-black hover:text-blue transition-colors duration-300">
+                                                    <i class="fa-regular fa-angle-right text-blue transition-transform duration-300 group-hover/hl:translate-x-1" aria-hidden="true"></i>
+                                                    {{ $navHighlight['label'] }}
+                                                </a>
+                                            @endforeach
+
+                                            @if($orderPage)
+                                                <a href="{{ $orderPage->url }}" class="btn btn-primary mt-6 self-start">Direct bestellen</a>
+                                            @endif
                                         </div>
-                                    @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     @else
                         <a href="{{ $navItem->url }}" @if($navItem->id === $navCurrentId) aria-current="page" @endif @class([
-                            'inline-flex items-center hover:text-blue group font-heading font-extrabold',
+                            'inline-flex items-center hover:text-blue group font-heading font-extrabold uppercase',
                             'text-blue' => in_array($navItem->id, $navActiveIds, true),
                             'text-black' => !in_array($navItem->id, $navActiveIds, true),
                         ])>{{ $navItem->title }}@if(!empty($navCounts[$navItem->id]))<span class="bg-yellow rounded-full size-6 flex justify-center items-center ml-2 group-hover:rotate-360 transition-all duration-500"><span class="block text-sm font-bold text-black">{{ $navCounts[$navItem->id] }}</span></span>@endif</a>
                     @endif
                 @endforeach
+
+                @if(count($languageLinks) > 1)
+                    <div class="flex items-center gap-2 font-heading font-extrabold uppercase">
+                        @foreach($languageLinks as $navLanguage)
+                            @if(!$loop->first)<span class="text-grey-400" aria-hidden="true">|</span>@endif
+                            <a href="{{ $navLanguage['url'] }}" class="hover:text-blue transition-colors duration-300" hreflang="{{ strtolower($navLanguage['label']) }}">{{ $navLanguage['label'] }}</a>
+                        @endforeach
+                    </div>
+                @endif
             </div>
             <div class="-mr-2 flex items-center xl:hidden">
                 <button id="mobile-menu-toggle"
@@ -115,7 +153,8 @@
             </div>
         </div>
         <div class="static xl:relative">
-            <div class="absolute top-24 xl:top-0 right-0 flex flex-col items-end gap-2 xl:flex-row xl:items-center pointer-events-auto translate-x-1">
+            {{-- z-50: de knoppen blijven boven de uitklap staan, zoals in het ontwerp. --}}
+            <div class="absolute top-24 xl:top-0 right-0 z-50 flex flex-col items-end gap-2 xl:flex-row xl:items-center pointer-events-auto translate-x-1">
                 @if($orderPage)
                 <div class="relative flex items-center overflow-hidden drop-shadow-lg translate-x-[calc(100%-3rem)] hover:translate-x-0 xl:translate-x-0 transition-transform duration-300 group">
                     <a href="{{ $orderPage->url }}" class="absolute inset-0 z-20 cursor-pointer" aria-label="Gas bestellen"></a>
@@ -158,18 +197,31 @@
                                 @foreach($navMega['links'] as $navMegaLink)
                                     <a href="{{ $navMegaLink['url'] }}" class="btn btn-secondary shadow-none">{{ $navMegaLink['label'] }}</a>
                                 @endforeach
+                                @if(!empty($navMega['allUrl']))
+                                    <a href="{{ $navMega['allUrl'] }}" class="btn btn-secondary shadow-none">{{ $navMega['allLabel'] }}</a>
+                                @endif
                             </div>
                         @endif
                     </div>
                 @endforeach
-                @if($arrangeLinks)
+                @php($navHighlights = $megaMenus[array_key_first($megaMenus)]['highlight'] ?? [])
+                @if($navHighlights)
                     <div class="flex flex-col gap-3 pt-2">
                         <span class="font-heading font-extrabold text-xl text-black">Direct regelen</span>
                         <div class="flex flex-wrap gap-3">
-                            @foreach($arrangeLinks as $navArrangeLink)
-                                <a href="{{ $navArrangeLink['url'] }}" class="btn btn-dark shadow-none">{{ $navArrangeLink['label'] }}</a>
+                            @foreach($navHighlights as $navHighlight)
+                                <a href="{{ $navHighlight['url'] }}" class="btn btn-dark shadow-none">{{ $navHighlight['label'] }}</a>
                             @endforeach
                         </div>
+                    </div>
+                @endif
+
+                @if(count($languageLinks) > 1)
+                    <div class="flex items-center gap-3 pt-2 font-heading font-extrabold uppercase">
+                        @foreach($languageLinks as $navLanguage)
+                            @if(!$loop->first)<span class="text-grey-400" aria-hidden="true">|</span>@endif
+                            <a href="{{ $navLanguage['url'] }}" class="hover:text-blue" hreflang="{{ strtolower($navLanguage['label']) }}">{{ $navLanguage['label'] }}</a>
+                        @endforeach
                     </div>
                 @endif
             </div>
