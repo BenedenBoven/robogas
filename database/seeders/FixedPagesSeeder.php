@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Domains\Page\Models\Page;
+use App\Support\TaxonomyMap;
 use Illuminate\Database\Seeder;
 
 /**
@@ -18,7 +19,9 @@ final class FixedPagesSeeder extends Seeder {
     /** TaxonomyMap-naam => paginatitel. De titel is ook het label in het menu. */
     private const PAGES = [
         'SERVICES'    => 'Diensten',
-        'AUDIENCES'   => 'Voor wie',
+        'AUDIENCES'   => 'Gastanks',
+        'CYLINDERS'   => 'Gasflessen',
+        'SWITCH'      => 'Overstappen',
         'KNOWLEDGE'   => 'Onze kennis',
         'ABOUT'       => 'Over ons',
         'CAREERS'     => 'Vacatures',
@@ -30,6 +33,7 @@ final class FixedPagesSeeder extends Seeder {
         'MALFUNCTION' => 'Storing melden',
         'TERMS'       => 'Algemene voorwaarden',
         'PRIVACY'     => 'Privacyverklaring',
+        'GERMAN'      => 'Deutsch',
     ];
 
     /**
@@ -38,6 +42,7 @@ final class FixedPagesSeeder extends Seeder {
      */
     private const SLUGS = [
         'AUDIENCES' => 'gas-voor',
+        'GERMAN'    => 'de',
     ];
 
     /**
@@ -47,9 +52,32 @@ final class FixedPagesSeeder extends Seeder {
     private const LEGAL_PLACEHOLDER = '<p><strong>Deze tekst moet nog worden aangeleverd.</strong> '
         . 'Vervang deze alinea door de definitieve tekst voordat de website live gaat.</p>';
 
+    /**
+     * Pagina's uit het ontwerp waarvoor nog geen tekst is. De notitie staat in
+     * de tekst zelf, zodat niemand een lege pagina live zet. Wordt alleen
+     * gebruikt zolang het tekstveld leeg is.
+     */
+    private const PLACEHOLDERS = [
+        'CYLINDERS' => '<h2>Gasflessen</h2><p><strong>Deze tekst moet nog worden aangeleverd.</strong> '
+            . 'Hier komt het verhaal over gasflessen: welke maten er zijn, hoe je ze wisselt en waar je ze ophaalt of laat bezorgen.</p>',
+        'SWITCH'    => '<h2>Overstappen naar RoboGas</h2><p><strong>Deze tekst moet nog worden aangeleverd.</strong> '
+            . 'Hier komt het verhaal over overstappen: wat het je oplevert, hoe het overzetten van je tank werkt en wat wij regelen.</p>',
+        'GERMAN'    => '<h2>RoboGas auf Deutsch</h2><p><strong>Dieser Text muss noch geliefert werden.</strong> '
+            . 'Hier kommt die deutsche Seite: wer wir sind, was wir liefern und wie Sie uns erreichen.</p>'
+            . '<p>RoboGas, Gildenstraat 20, 3861 RG Nijkerk, Niederlande. Telefon 033 - 245 25 45, info@robogas.nl.</p>',
+    ];
+
     public function run(): void {
         foreach(self::PAGES as $case => $title) {
-            $page = Page::query()->joined()->where('atom_pages.title', $title)->where('atom_taxonomies.parent_id', 0)->first();
+            // Eerst op taxonomy-id: staat de pagina al in de TaxonomyMap, dan is
+            // dat de pagina, ook als de titel intussen anders is (Voor wie werd
+            // Gastanks). Pas daarna op titel, voor een verse installatie.
+            $map  = TaxonomyMap::tryFromName($case);
+            $page = $map !== null
+                ? Page::query()->joined()->where('atom_taxonomies.id', $map->value)->first()
+                : null;
+
+            $page ??= Page::query()->joined()->where('atom_pages.title', $title)->where('atom_taxonomies.parent_id', 0)->first();
 
             if($page === null) {
                 $page = new Page();
@@ -66,6 +94,20 @@ final class FixedPagesSeeder extends Seeder {
                     $page->load('taxonomy');
                     $page->updateTaxonomy(parentId: 0, customSlug: self::SLUGS[$case]);
                 }
+            }
+
+            // Een pagina zonder tekst krijgt de plaatshouder, ook als de pagina er al was.
+            if(isset(self::PLACEHOLDERS[$case]) && trim(strip_tags((string)($page->getAttributes()['body'] ?? ''))) === '') {
+                $page->body = self::PLACEHOLDERS[$case];
+                $page->save();
+                $this->command?->line('Plaatshoudertekst gezet: ' . $title);
+            }
+
+            // De titel in deze seeder is leidend: hij is ook het label in het menu.
+            if($page->title !== $title) {
+                $this->command?->line('Hernoemd: ' . $page->title . ' wordt ' . $title);
+                $page->title = $title;
+                $page->save();
             }
 
             $taxonomy = $page->taxonomy()->first();

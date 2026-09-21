@@ -8,6 +8,8 @@ enum TaxonomyMap: int {
     case HOME        = 2;
     case SERVICES    = 4;
     case AUDIENCES   = 5;
+    case CYLINDERS   = 72;
+    case SWITCH      = 73;
     case KNOWLEDGE   = 6;
     case ABOUT       = 7;
     case CAREERS     = 8;
@@ -19,6 +21,17 @@ enum TaxonomyMap: int {
     case MALFUNCTION = 14;
     case TERMS       = 39;
     case PRIVACY     = 40;
+    case GERMAN      = 74;
+
+    public static function tryFromName(string $name): ?self {
+        foreach(self::cases() as $case) {
+            if($case->name === $name) {
+                return $case;
+            }
+        }
+
+        return null;
+    }
 
     public function isDeletable(): bool {
         return match ($this) {
