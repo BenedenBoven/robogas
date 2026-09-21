@@ -24,7 +24,7 @@
           content="{{ isset($taxonomy) ? $taxonomy?->meta_description ?? (strip_tags($taxonomy?->getModel()->getSummary(30)) ?? '') : '' }}">
     <meta property="og:url" content="{{ getHost() }}{{ $taxonomy?->url ?? '/' }}">
 </head>
-<body>
+<body class="bg-white">
 @include('components.nav')
 @include('components.header')
 @yield('content')
